@@ -5,7 +5,7 @@
 		@click.stop="toogleMenu"
 		ref="multiselect"
 	>
-		<div class="flex w-full items-center">
+		<div class="flex w-full items-center justify-between">
 			<div class="flex flex-initial flex-wrap">
 				<span
 					class="tag flex items-center"
@@ -15,8 +15,13 @@
 					<slot name="tag" :tag="tag"></slot>
 				</span>
 			</div>
-			<div class="flex-auto text-right">
-				<slot name="icon" :show-menu="showMenu"></slot>
+			<div class="flex flex-auto justify-end">
+				<div class="flex items-center">
+					<div @click.stop="clearAction" class="icon-clear" v-if="clearable">&#9747;</div>
+					<div class="icon-menu" :style="`transform:rotateZ(${showMenu ? '180deg' : '0deg'})`">
+						<slot name="icon" :show-menu="showMenu"></slot>
+					</div>
+				</div>
 			</div>
 		</div>
 		<transition :name="transitionName" :mode="transitionMode">
@@ -72,6 +77,10 @@ function addOrRemove(item) {
 	this.$emit('input', this.uniqueSelected);
 }
 
+function clearAction() {
+	this.uniqueSelected.forEach(this.addOrRemove);
+}
+
 function data() {
 	return {
 		count: 0,
@@ -89,11 +98,16 @@ export default {
 	data,
 	methods: {
 		addOrRemove,
+		clearAction,
 		hideMenu,
 		toogleMenu,
 	},
 	mounted,
 	props: {
+		clearable: {
+			default: false,
+			type: Boolean,
+		},
 		itemDivider: {
 			default: false,
 			type: Boolean,
@@ -144,5 +158,28 @@ export default {
 }
 .text-right {
 	text-align: right;
+}
+.icon-menu {
+	cursor: pointer;
+	max-width: fit-content;
+	transform-origin: center;
+	transition: transform 0.175s linear;
+}
+
+.icon-clear {
+	align-items: center;
+	border: 1px solid;
+	border-radius: 50%;
+	cursor: pointer;
+	display: flex;
+	font-size: 13px;
+	height: 13px;
+	justify-content: center;
+	margin-right: 5px;
+	width: 13px;
+}
+.icon-clear:hover {
+	background-color: #eaeef3;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 </style>

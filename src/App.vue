@@ -1,24 +1,15 @@
 <template>
 	<div id="app" class="flex justify-center">
 		<MultiSelect
-			class="multi-select-container flex items-center justify-between"
 			item-divider
+			clearable
+			class="multi-select-container flex items-center justify-between"
 			transition-name="vertical"
 			:options="options"
 			v-model="optionsSelected"
 		>
-			<template v-slot:tag="{ tag }">
-				<Tag>{{tag.name}}</Tag>
-			</template>
-			<template v-slot:icon="{ showMenu }">
-				<!-- <font-awesome-icon
-					icon="chevron-down"
-					:class="[
-						'px-2 icon',
-						{ 'icon-animation': showMenu },
-					]"
-				/> -->
-			</template>
+			<template v-slot:tag="{ tag }"><Tag>{{tag.name}}</Tag></template>
+			<template v-slot:icon="{ showMenu }"><div class="menu-icon">&#9757;</div></template>
 			<template v-slot:menu="{ menuItem }">
 				<div
 					:class="[
@@ -26,7 +17,11 @@
 						{ 'menu-item-selected': menuItem.isSelected },
 					]"
 				>
-					<span>{{menuItem.name}}</span>
+					<div
+						v-show="menuItem.isSelected"
+						:class="{ 'selected-icon': menuItem.isSelected }"
+					>&#9829;</div>
+					<span class="menu-item-name">{{menuItem.name}}</span>
 				</div>
 			</template>
 		</MultiSelect>
@@ -44,6 +39,7 @@ function data() {
 			{ id: 2, name: 'Noah' },
 			{ id: 3, name: 'Churry' },
 			{ id: 4, name: 'Kaki' },
+			{ id: 5, name: 'Pepito' },
 		],
 		optionsSelected: [],
 	};
@@ -76,6 +72,9 @@ export default {
 }
 .justify-between {
 	justify-content: space-between;
+}
+.justify-end {
+	justify-content: flex-end;
 }
 .justify-center {
 	justify-content: center;
@@ -123,9 +122,12 @@ export default {
 }
 
 .menu-item {
+	display: flex;
+	justify-content: center;
 	padding: 0.75rem 1.25rem;
 }
-.menu-item-selected {
+.menu-item-selected,
+.selected-icon {
 	color: #4dd599;
 }
 .vertical-enter-active, .vertical-leave-active {
@@ -134,5 +136,10 @@ export default {
 .vertical-enter, .vertical-leave-to {
   opacity: 0;
   transform: translate3d(20px, 30px, 40px);
+}
+.selected-icon {
+	left: 0;
+	margin-left: 10px;
+	position: absolute;
 }
 </style>
