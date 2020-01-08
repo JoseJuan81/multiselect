@@ -1,29 +1,33 @@
-# multiselect
+# Multiselect
+> **multiselect** is a `vue` component used to select multiple options at the same time.
+> This component only has basic and general style and the user can style it the way he or she wants, that's why this component can be used in any vue project.
+> Multiselect comes with a optional `Tag` component that can be used in the ***tag*** slot.
 
-## Project setup
+## Install
+```code
+npm install --save multiselect
 ```
-npm install
-```
+## Global Use
+in your `main.js`
+```js
+import Vue from 'vue';
+import { Multiselect, Tag } from 'multiselect';
 
-### Compiles and hot-reloads for development
+Vue.use(Multiselect);
+Vue.use(Tag);
 ```
-npm run serve
+## Local Use
+in your `.vue` file
+```js
+<script>
+import { Multiselect, Tag } from 'multiselect';
+export default {
+	name: 'component-name',
+	components: {
+		Multiselect,
+		Tag,
+	},
+}
+...
+</script>
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
