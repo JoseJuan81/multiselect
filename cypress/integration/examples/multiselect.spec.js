@@ -17,7 +17,28 @@ context('Multiselect', () => {
 			.click()
 			.next()
 			.click();
-		// Verificar que dos items esten seleccionados en el menú
+		// Seleccionar el último item
+		cy.get('[data-cy="multiselect-menu"]')
+			.should('exist')
+			.children('li')
+			.last()
+			.click();
+		// Verificar que 3 items esten seleccionados en el menú
+		cy.get('[data-cy="multiselect-menu"]')
+			.find('.menu-item-selected')
+			.should('have.length', 3);
+		// Verificar hayan 3 elementos en el campo de selección
+		cy.get('[data-cy="tags"]')
+			.children()
+			.children()
+			.should('have.length', 3);
+		// Deseleccionar el último elemento
+		cy.get('[data-cy="multiselect-menu"]')
+			.should('exist')
+			.children('li')
+			.last()
+			.click();
+		// Verificar que 2 items esten seleccionados en el menú
 		cy.get('[data-cy="multiselect-menu"]')
 			.find('.menu-item-selected')
 			.should('have.length', 2);
