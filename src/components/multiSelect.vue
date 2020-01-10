@@ -1,12 +1,13 @@
 <template>
 	<div
 		class="relative"
-		data-cy="multiselect-container"
 		:style="`min-height:${minHeight};`"
 		@click.stop="toogleMenu"
 	>
 		<div class="flex w-full items-center justify-between">
-			<div class="flex flex-initial flex-wrap">
+			<div
+				data-cy="tags"
+				class="flex flex-initial flex-wrap">
 				<span
 					class="tag flex items-center"
 					v-for="(tag, index) in uniqueSelected"
@@ -17,7 +18,7 @@
 			</div>
 			<div class="flex flex-auto justify-end">
 				<div class="flex items-center">
-					<div @click.stop="clearAction" v-if="clearable">
+					<div data-cy="clearable" @click.stop="clearAction" v-if="clearable">
 						<slot name="close-icon"></slot>
 					</div>
 					<div class="icon-menu" :style="`transform:rotateZ(${showMenu ? '180deg' : '0deg'})`">

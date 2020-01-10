@@ -3,6 +3,7 @@
 		<MultiSelect
 			item-divider
 			clearable
+			data-cy="multiselect-container"
 			class="multi-select-container flex items-center justify-between"
 			transition-name="vertical"
 			:options="options"
