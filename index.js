@@ -1,7 +1,7 @@
-import Multiselect from './src/components/multiSelect.vue';
+import MultiSelect from './src/components/multiSelect.vue';
 import Tag from './src/components/tag.vue';
 
-export { Multiselect };
+export { MultiSelect };
 export { Tag };
-export default Multiselect;
+export default MultiSelect;
 

@@ -9,7 +9,12 @@
 			v-model="optionsSelected"
 		>
 			<template v-slot:tag="{ tag }"><Tag>{{tag.name}}</Tag></template>
-			<template v-slot:icon="{ showMenu }"><div class="menu-icon">&#9757;</div></template>
+			<template v-slot:icon="{ showMenu }">
+				<div class="menu-icon">&#9757;</div>
+			</template>
+			<template v-slot:close-icon>
+				<span  class="icon-clear">&#9747;</span>
+			</template>
 			<template v-slot:menu="{ menuItem }">
 				<div
 					:class="[
@@ -118,6 +123,28 @@ export default {
 		border-radius: 5px;
 		border: 1px solid #494ca2;
 		color: #494ca2;
+	}
+
+	.icon-clear {
+		align-items: center;
+		background-color: white;
+		border: 1px solid;
+		border-radius: 50%;
+		color: red;
+		cursor: pointer;
+		display: flex;
+		font-size: 13px;
+		height: 13px;
+		justify-content: center;
+		margin-right: 5px;
+		width: 13px;
+	}
+
+	.icon-clear:hover {
+		background-color: red;
+		border-color: red;
+		color: white;
+		font-weight: bold;
 	}
 }
 
