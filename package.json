@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test": "cypress open"
+    "test": "cypress run",
+    "cy:open": "cypress open"
   },
   "dependencies": {
     "core-js": "^3.4.4",
