@@ -1,7 +1,8 @@
+const devPort = Cypress.env('devPort');
 
 context('Multiselect', () => {
 	beforeEach(() => {
-		cy.visit('http://localhost:8080/');
+		cy.visit(`http://localhost:${devPort}/`);
 	})
 	it('Existen items seleccionados', () => {
 		// Hacer click en el campo de selección
