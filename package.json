@@ -20,7 +20,8 @@
     "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/MultiSelect.umd.js"
   },
   "dependencies": {
-    "core-js": "^3.4.4"
+    "core-js": "^3.4.4",
+    "vue": "^2.6.10"
   },
   "devDependencies": {
     "@rollup/plugin-buble": "^0.21.0",
@@ -38,7 +39,6 @@
     "rollup": "^1.29.0",
     "rollup-plugin-vue": "^5.1.5",
     "sass-loader": "^8.0.0",
-    "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.10"
   },
   "bugs": {
