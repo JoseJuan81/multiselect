@@ -14,7 +14,7 @@ cache:
 
 script:
   # start server in the background
-  - npm run serve &
+  - npm run dev &
   # run all Cypress tests and record on the dashboard
   # the projectId and key from testRunner > runs configurations (cypress test interface)
   - npm test -- --record --key f6a7ebca-cb26-484f-890b-7ddace40c918
