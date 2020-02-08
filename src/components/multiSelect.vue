@@ -13,7 +13,7 @@
 					v-for="(tag, index) in uniqueSelected"
 					:key="index"
 				>
-					<slot name="tag" :tag="tag"></slot>
+					<slot name="tag" :tag="tag" :removeIt="addOrRemove"></slot>
 				</span>
 			</div>
 			<div class="flex flex-auto justify-end">
@@ -151,11 +151,6 @@ export default {
 }
 .flex-wrap {
 	flex-wrap: wrap;
-}
-.tag {
-	margin: 0.25rem;
-	padding: 0.25rem 1rem;
-	white-space: nowrap;
 }
 .flex-auto {
 	flex: 1 1 auto;

@@ -9,7 +9,9 @@
 			:options="options"
 			v-model="optionsSelected"
 		>
-			<template v-slot:tag="{ tag }"><Tag>{{tag.name}}</Tag></template>
+			<template v-slot:tag="{ tag, removeIt }">
+				<Tag @click.stop="removeIt(tag)">{{tag.name}}</Tag>
+			</template>
 			<template v-slot:icon="{ showMenu }">
 				<div class="menu-icon">&#9757;</div>
 			</template>
@@ -118,12 +120,6 @@ export default {
 		.menu-list:last-child {
 			border: none;
 		}
-	}
-	.tag {
-		background-color: #c6cbef;
-		border-radius: 5px;
-		border: 1px solid #494ca2;
-		color: #494ca2;
 	}
 
 	.icon-clear {
