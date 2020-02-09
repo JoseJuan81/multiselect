@@ -20,7 +20,7 @@ export default {
 		color: #494ca2;
 		display: flex;
 		margin: 0.25rem;
-		padding: 0.25rem 1rem;
+		padding: 0.25rem 0.25rem 0.25rem 0.5rem;
 		white-space: nowrap;
 	}
 

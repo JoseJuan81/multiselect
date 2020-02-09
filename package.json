@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "core-js": "^3.4.4",
+    "functionallibrary": "^1.0.3",
     "vue": "^2.6.10"
   },
   "devDependencies": {
@@ -42,6 +43,6 @@
     "vue-template-compiler": "^2.6.10"
   },
   "bugs": {
-	"url": "https://github.com/JoseJuan81/multiselect/issues"
+    "url": "https://github.com/JoseJuan81/multiselect/issues"
   }
 }

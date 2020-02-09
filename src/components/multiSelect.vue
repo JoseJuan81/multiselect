@@ -9,7 +9,7 @@
 				data-cy="tags"
 				class="flex flex-initial flex-wrap">
 				<span
-					class="tag flex items-center"
+					class="flex items-center"
 					v-for="(tag, index) in uniqueSelected"
 					:key="index"
 				>
@@ -35,6 +35,13 @@
 				:style="`max-height:${menuMaxHeight}`"
 			>
 				<li
+					v-if="selectAll"
+					:class="{ 'menu-list': itemDivider }"
+					@click.stop="selectAllAction"
+				>
+					<slot name="select-all-items" :is-selected="allIsSelected"></slot>
+				</li>
+				<li
 					v-for="(option, indexO) in optionComputed"
 					:key="indexO"
 					:class="{ 'menu-list': itemDivider }"
@@ -48,6 +55,8 @@
 </template>
 
 <script>
+import { map, setNewProperty } from 'functionallibrary';
+
 function mounted() {
 	const self = this;
 	document.addEventListener('click', () => {
@@ -66,12 +75,15 @@ function toogleMenu() {
 }
 
 function optionComputed() {
-	return this.options;
+	return map(
+		setNewProperty('isSelected', item => !!item.isSelected),
+		this.options,
+	);
 }
 
-function addOrRemove(item) {
+function addOrRemove(item, flag) {
 	const newItem = item;
-	newItem.isSelected = !item.isSelected;
+	newItem.isSelected = typeof flag === 'undefined' ? !item.isSelected : flag;
 	if (newItem.isSelected) {
 		this.selected.add(newItem);
 	} else {
@@ -79,14 +91,27 @@ function addOrRemove(item) {
 	}
 	this.uniqueSelected = [...this.selected];
 	this.$emit('input', this.uniqueSelected);
+	this.allIsSelectedAction();
 }
 
 function clearAction() {
-	this.uniqueSelected.forEach(this.addOrRemove);
+	this.allFlag = false;
+	this.uniqueSelected.forEach(u => this.addOrRemove(u, this.allFlag));
+}
+
+function selectAllAction() {
+	this.allFlag = !this.allFlag;
+	this.optionComputed.forEach(u => this.addOrRemove(u, this.allFlag));
+}
+
+function allIsSelectedAction() {
+	this.allIsSelected = this.optionComputed.every(u => u.isSelected);
 }
 
 function data() {
 	return {
+		allFlag: false,
+		allIsSelected: false,
 		count: 0,
 		selected: new Set(),
 		showMenu: false,
@@ -102,8 +127,10 @@ export default {
 	data,
 	methods: {
 		addOrRemove,
+		allIsSelectedAction,
 		clearAction,
 		hideMenu,
+		selectAllAction,
 		toogleMenu,
 	},
 	mounted,
@@ -123,6 +150,10 @@ export default {
 		minHeight: {
 			default: '2.5rem',
 			type: String,
+		},
+		selectAll: {
+			default: false,
+			type: Boolean,
 		},
 		options: {
 			default: () => [],

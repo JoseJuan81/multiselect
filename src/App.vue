@@ -1,38 +1,55 @@
 <template>
-	<div id="app" class="flex justify-center">
-		<MultiSelect
-			item-divider
-			clearable
-			data-cy="multiselect-container"
-			class="multi-select-container flex items-center justify-between"
-			transition-name="vertical"
-			:options="options"
-			v-model="optionsSelected"
-		>
-			<template v-slot:tag="{ tag, removeIt }">
-				<Tag @click.stop="removeIt(tag)">{{tag.name}}</Tag>
-			</template>
-			<template v-slot:icon="{ showMenu }">
-				<div class="menu-icon">&#9757;</div>
-			</template>
-			<template v-slot:close-icon>
-				<span  class="icon-clear">&#9747;</span>
-			</template>
-			<template v-slot:menu="{ menuItem }">
-				<div
-					:class="[
-						'menu-item',
-						{ 'menu-item-selected': menuItem.isSelected },
-					]"
-				>
+	<div id="app">
+		<div class="flex justify-center" style="padding-top:6rem">
+			<MultiSelect
+				clearable
+				item-divider
+				select-all
+				data-cy="multiselect-container"
+				class="multi-select-container flex items-center justify-between"
+				transition-name="vertical"
+				:options="options"
+				v-model="optionsSelected"
+			>
+				<template v-slot:tag="{ tag, removeIt }">
+					<Tag @click.stop="removeIt(tag)">{{tag.name}}</Tag>
+				</template>
+				<template v-slot:icon>
+					<div class="menu-icon">&#9757;</div>
+				</template>
+				<template v-slot:close-icon>
+					<span  class="icon-clear">&#9747;</span>
+				</template>
+				<template v-slot:select-all-items="{ isSelected }">
 					<div
-						v-show="menuItem.isSelected"
-						:class="{ 'selected-icon': menuItem.isSelected }"
-					>&#9829;</div>
-					<span class="menu-item-name">{{menuItem.name}}</span>
-				</div>
-			</template>
-		</MultiSelect>
+						:class="[
+							'menu-item',
+							{ 'menu-item-selected': isSelected },
+						]"
+					>
+						<div
+							v-show="isSelected"
+							:class="{ 'selected-icon': isSelected }"
+						>&#9829;</div>
+						<span class="menu-item-name">Todos</span>
+					</div>
+				</template>
+				<template v-slot:menu="{ menuItem }">
+					<div
+						:class="[
+							'menu-item',
+							{ 'menu-item-selected': menuItem.isSelected },
+						]"
+					>
+						<div
+							v-show="menuItem.isSelected"
+							:class="{ 'selected-icon': menuItem.isSelected }"
+						>&#9829;</div>
+						<span class="menu-item-name">{{menuItem.name}}</span>
+					</div>
+				</template>
+			</MultiSelect>
+		</div>
 	</div>
 </template>
 
@@ -64,13 +81,17 @@ export default {
 </script>
 
 <style lang="scss">
+body {
+	margin: 0;
+}
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+	background-color:#efecea;
+	font-family: 'Avenir', Helvetica, Arial, sans-serif;
+	height: 100vh;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-align: center;
+	color: #2c3e50;
 }
 .flex {
 	display: flex;
@@ -92,7 +113,7 @@ export default {
 	border: 1px solid #ddddc7;
 	border-radius: 0.5rem;
 	padding: 0.5rem;
-	width: 35%;
+	width: 45%;
 
 	.multi-select-menu {
 		background-color: white;
