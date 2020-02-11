@@ -36,6 +36,7 @@
 			>
 				<li
 					v-if="selectAll"
+					data-cy="selectAll"
 					:class="{ 'menu-list': itemDivider }"
 					@click.stop="onSelectAll"
 				>

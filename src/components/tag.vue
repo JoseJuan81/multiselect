@@ -3,7 +3,7 @@
 		class="tag-container"
 	>
 		<slot></slot>
-		<div v-on="$listeners" class="close">x</div>
+		<div v-on="$listeners" class="close" data-cy="closeTag">x</div>
 	</div>
 </template>
 <script>

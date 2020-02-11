@@ -1,14 +1,27 @@
 const devPort = Cypress.env('devPort');
 
-context('Multiselect', () => {
+context('Multiselector', () => {
 	beforeEach(() => {
 		cy.visit(`http://localhost:${devPort}/`);
-	})
-	it('Existen items seleccionados', () => {
-		// Hacer click en el campo de selección
 		cy.get('[data-cy="multiselect-container"]')
-			.should('exist')
 			.click();
+	})
+	it('Seleccionar 3 items: primero, segundo y último',  () => {
+		cy.get('[data-cy="multiselect-menu"]')
+			.should('exist')
+			.children('li')
+			.should('have.length.gt', 1)
+			.first()
+			.click()
+			.next()
+			.click();
+		cy.get('[data-cy="multiselect-menu"]')
+			.should('exist')
+			.children('li')
+			.last()
+			.click();
+	})
+	it('Verificar que los 3 items estén seleccionados tanto en menú como en campo de selección', () => {
 		// Seleccionar el primero y segundo item del menú
 		cy.get('[data-cy="multiselect-menu"]')
 			.should('exist')
@@ -33,22 +46,21 @@ context('Multiselect', () => {
 			.children()
 			.children()
 			.should('have.length', 3);
-		// Deseleccionar el último elemento
+	})
+	it('Deseleccionar todos los elementos con el botón "clearable"', () => {
+		cy.get('[data-cy="multiselect-menu"]')
+			.should('exist')
+			.children('li')
+			.should('have.length.gt', 1)
+			.first()
+			.click()
+			.next()
+			.click();
 		cy.get('[data-cy="multiselect-menu"]')
 			.should('exist')
 			.children('li')
 			.last()
 			.click();
-		// Verificar que 2 items esten seleccionados en el menú
-		cy.get('[data-cy="multiselect-menu"]')
-			.find('.menu-item-selected')
-			.should('have.length', 4);
-		// Verificar hayan 2 elementos en el campo de selección
-		cy.get('[data-cy="tags"]')
-			.children()
-			.children()
-			.should('have.length', 4);
-		// Presionar botón para eliminar todas las selecciones
 		cy.get('[data-cy="multiselect-container"]')
 			.find('[data-cy="clearable"]')
 			.should('exist')
@@ -57,15 +69,38 @@ context('Multiselect', () => {
 		cy.get('[data-cy="multiselect-menu"]')
 			.find('.menu-item-selected')
 			.should('not.exist');
-		// Verificar no hayan elementos en el campo de selección
 		cy.get('[data-cy="tags"]')
 			.children('.tag')
 			.should('not.exist');
-		// Cerrar menú
 		cy.get('[data-cy="multiselect-container"]')
-			.should('exist')
 			.click();
-		cy.get('[data-cy="multiselect-menu"]')
-			.should('not.exist');
+	})
+	it('Seleccionar todos los items con un click', () => {
+		cy.get('[data-cy=selectAll]')
+			.click();
+		cy.get('[data-cy="multiselect-container"]')
+			.click();
+	})
+	it('Deseleccionar todos los items con un click', () => {
+		cy.get('[data-cy=selectAll]')
+			.click();
+		cy.get('[data-cy=selectAll]')
+			.click();
+		cy.get('[data-cy="multiselect-container"]')
+			.click();
+	})
+	it('Eliminar tags desde su respectiva x', () => {
+		cy.get('[data-cy=selectAll]')
+			.click();
+		cy.get('[data-cy="tags"]')
+			.children()
+			.first()
+			.find('[data-cy=closeTag]')
+			.click();
+		cy.get('[data-cy="tags"]')
+			.children()
+			.first()
+			.find('[data-cy=closeTag]')
+			.click();
 	})
 });
