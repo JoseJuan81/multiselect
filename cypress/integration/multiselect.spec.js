@@ -42,14 +42,15 @@ context('Multiselect', () => {
 		// Verificar que 2 items esten seleccionados en el menú
 		cy.get('[data-cy="multiselect-menu"]')
 			.find('.menu-item-selected')
-			.should('have.length', 2);
+			.should('have.length', 4);
 		// Verificar hayan 2 elementos en el campo de selección
 		cy.get('[data-cy="tags"]')
 			.children()
 			.children()
-			.should('have.length', 2);
+			.should('have.length', 4);
 		// Presionar botón para eliminar todas las selecciones
-		cy.get('[data-cy="clearable"]')
+		cy.get('[data-cy="multiselect-container"]')
+			.find('[data-cy="clearable"]')
 			.should('exist')
 			.click();
 		// Verificar no hayan items seleccionados en el menú
