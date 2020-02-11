@@ -1,54 +1,98 @@
 <template>
 	<div id="app">
-		<div class="flex justify-center" style="padding-top:6rem">
-			<MultiSelect
-				clearable
-				item-divider
-				select-all
-				data-cy="multiselect-container"
-				class="multi-select-container flex items-center justify-between"
-				transition-name="vertical"
-				:options="options"
-				v-model="optionsSelected"
-			>
-				<template v-slot:tag="{ tag, removeIt }">
-					<Tag @click.stop="removeIt(tag)">{{tag.name}}</Tag>
-				</template>
-				<template v-slot:icon>
-					<div class="menu-icon">&#9757;</div>
-				</template>
-				<template v-slot:close-icon>
-					<span  class="icon-clear">&#9747;</span>
-				</template>
-				<template v-slot:select-all-items="{ isSelected }">
-					<div
-						:class="[
-							'menu-item',
-							{ 'menu-item-selected': isSelected },
-						]"
-					>
+		<div>
+			<h4>Multiselector de objetos</h4>
+			<div class="flex justify-center">
+				<MultiSelect
+					clearable
+					item-divider
+					select-all
+					multiselect
+					prop="id"
+					data-cy="multiselect-container"
+					class="multi-select-container flex items-center justify-between"
+					transition-name="vertical"
+					:options="options"
+					v-model="optionsSelected"
+				>
+					<template v-slot:tag="{ tag, removeIt }">
+						<Tag @click.stop="removeIt(tag)">{{tag.name}}</Tag>
+					</template>
+					<template v-slot:icon>
+						<div class="menu-icon">&#9757;</div>
+					</template>
+					<template v-slot:close-icon>
+						<span  class="icon-clear">&#9747;</span>
+					</template>
+					<template v-slot:select-all-items="{ isSelected }">
 						<div
-							v-show="isSelected"
-							:class="{ 'selected-icon': isSelected }"
-						>&#9829;</div>
-						<span class="menu-item-name">Todos</span>
-					</div>
-				</template>
-				<template v-slot:menu="{ menuItem }">
-					<div
-						:class="[
-							'menu-item',
-							{ 'menu-item-selected': menuItem.isSelected },
-						]"
-					>
+							:class="[
+								'menu-item',
+								{ 'menu-item-selected': isSelected },
+							]"
+						>
+							<div
+								v-show="isSelected"
+								:class="{ 'selected-icon': isSelected }"
+							>&#9829;</div>
+							<span class="menu-item-name">Todos</span>
+						</div>
+					</template>
+					<template v-slot:menu="{ menuItem }">
 						<div
-							v-show="menuItem.isSelected"
-							:class="{ 'selected-icon': menuItem.isSelected }"
-						>&#9829;</div>
-						<span class="menu-item-name">{{menuItem.name}}</span>
-					</div>
-				</template>
-			</MultiSelect>
+							:class="[
+								'menu-item',
+								{ 'menu-item-selected': menuItem.isSelected },
+							]"
+						>
+							<div
+								v-show="menuItem.isSelected"
+								:class="{ 'selected-icon': menuItem.isSelected }"
+							>&#9829;</div>
+							<span class="menu-item-name">{{menuItem.name}}</span>
+						</div>
+					</template>
+				</MultiSelect>
+			</div>
+		</div>
+		<div>
+			<h4>Selector simple de objetos</h4>
+			<div class="flex justify-center">
+				<MultiSelect
+					clearable
+					item-divider
+					prop="id"
+					data-cy="multiselect-container"
+					class="multi-select-container flex items-center justify-between"
+					transition-name="vertical"
+					:options="options"
+					v-model="oneSelection"
+				>
+					<template v-slot:tag="{ tag }">
+						<span>{{tag.name}}</span>
+					</template>
+					<template v-slot:icon>
+						<div class="menu-icon">&#9757;</div>
+					</template>
+					<template v-slot:close-icon>
+						<span  class="icon-clear">&#9747;</span>
+					</template>
+					<template v-slot:menu="{ menuItem }">
+						<div
+							:class="[
+								'menu-item',
+								{ 'menu-item-selected': menuItem.isSelected },
+							]"
+						>
+							<div
+								v-show="menuItem.isSelected"
+								:class="{ 'selected-icon': menuItem.isSelected }"
+							>&#9829;</div>
+							<span class="menu-item-name">{{menuItem.name}}</span>
+						</div>
+					</template>
+				</MultiSelect>
+			</div>
 		</div>
 	</div>
 </template>
@@ -59,6 +103,7 @@ import Tag from './components/tag.vue';
 
 function data() {
 	return {
+		oneSelection: null,
 		options: [
 			{ id: 1, name: 'Juan' },
 			{ id: 2, name: 'Noah' },
@@ -86,13 +131,20 @@ body {
 }
 #app {
 	background-color:#efecea;
+	display: flex;
+	flex-direction: column;
 	font-family: 'Avenir', Helvetica, Arial, sans-serif;
 	height: 100vh;
+	justify-content: space-evenly;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	color: #2c3e50;
 }
+h4 {
+	margin: 0;
+}
+
 .flex {
 	display: flex;
 }

@@ -10,7 +10,7 @@
 				class="flex flex-initial flex-wrap">
 				<span
 					class="flex items-center"
-					v-for="(tag, index) in uniqueSelected"
+					v-for="(tag, index) in value"
 					:key="index"
 				>
 					<slot name="tag" :tag="tag" :removeIt="addOrRemove"></slot>
@@ -37,7 +37,7 @@
 				<li
 					v-if="selectAll"
 					:class="{ 'menu-list': itemDivider }"
-					@click.stop="selectAllAction"
+					@click.stop="onSelectAll"
 				>
 					<slot name="select-all-items" :is-selected="allIsSelected"></slot>
 				</li>
@@ -55,7 +55,9 @@
 </template>
 
 <script>
-import { map, setNewProperty } from 'functionallibrary';
+import {
+	equality, find, map, setNewProperty,
+} from 'functionallibrary';
 
 function mounted() {
 	const self = this;
@@ -75,47 +77,69 @@ function toogleMenu() {
 }
 
 function optionComputed() {
+	if (this.multiselect) {
+		return this.value && this.value.length ? this.selectingOptions : this.options;
+	}
+	return this.value ? this.selectingOptions : this.options;
+}
+
+function selectingOptions() {
 	return map(
-		setNewProperty('isSelected', item => !!item.isSelected),
+		setNewProperty('isSelected', o => Boolean(find(equality(this.prop, o[this.prop]), this.value))),
 		this.options,
 	);
 }
 
 function addOrRemove(item, flag) {
-	const newItem = item;
-	newItem.isSelected = typeof flag === 'undefined' ? !item.isSelected : flag;
-	if (newItem.isSelected) {
-		this.selected.add(newItem);
+	this.currentOption = { ...item };
+	this.currentOption.isSelected = typeof flag === 'undefined' ? !item.isSelected : flag;
+	if (this.multiselect) {
+		this.addOrRemoveInMultiselect();
 	} else {
-		this.selected.delete(newItem);
+		this.addOrRemoveInSingleSelect();
 	}
-	this.uniqueSelected = [...this.selected];
-	this.$emit('input', this.uniqueSelected);
+}
+
+function addOrRemoveInSingleSelect() {
+	if (this.value && this.value.length > 0) {
+		this.selected = [];
+	}
+	this.selected = this.currentOption.isSelected ? this.selected.concat(this.currentOption) : [];
+	this.$emit('input', [...this.selected]);
+}
+function addOrRemoveInMultiselect() {
+	if (this.currentOption.isSelected) {
+		this.selected = this.selected.concat(this.currentOption);
+	} else {
+		this.selected = this.selected.filter(f => f[this.prop] !== this.currentOption[this.prop]);
+	}
+	this.$emit('input', [...this.selected]);
 	this.allIsSelectedAction();
 }
 
 function clearAction() {
-	this.allFlag = false;
-	this.uniqueSelected.forEach(u => this.addOrRemove(u, this.allFlag));
+	this.value.forEach(u => this.addOrRemove(u, false));
 }
 
-function selectAllAction() {
+function onSelectAll() {
+	if (this.value.length > 0) {
+		this.clearAction();
+	}
 	this.allFlag = !this.allFlag;
 	this.optionComputed.forEach(u => this.addOrRemove(u, this.allFlag));
 }
 
 function allIsSelectedAction() {
-	this.allIsSelected = this.optionComputed.every(u => u.isSelected);
+	this.allIsSelected = this.selected.length === this.options.length;
 }
 
 function data() {
 	return {
 		allFlag: false,
 		allIsSelected: false,
-		count: 0,
-		selected: new Set(),
+		currentOption: {},
+		selected: [],
 		showMenu: false,
-		uniqueSelected: [],
 	};
 }
 
@@ -123,14 +147,17 @@ export default {
 	name: 'multi-select',
 	computed: {
 		optionComputed,
+		selectingOptions,
 	},
 	data,
 	methods: {
 		addOrRemove,
+		addOrRemoveInMultiselect,
+		addOrRemoveInSingleSelect,
 		allIsSelectedAction,
 		clearAction,
 		hideMenu,
-		selectAllAction,
+		onSelectAll,
 		toogleMenu,
 	},
 	mounted,
@@ -151,6 +178,10 @@ export default {
 			default: '2.5rem',
 			type: String,
 		},
+		multiselect: {
+			default: false,
+			type: Boolean,
+		},
 		selectAll: {
 			default: false,
 			type: Boolean,
@@ -158,6 +189,10 @@ export default {
 		options: {
 			default: () => [],
 			type: Array,
+		},
+		prop: {
+			default: '',
+			type: String,
 		},
 		transitionName: {
 			default: '',
@@ -167,6 +202,7 @@ export default {
 			default: 'out-in',
 			type: String,
 		},
+		value: null,
 	},
 };
 </script>
