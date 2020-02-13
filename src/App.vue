@@ -62,6 +62,7 @@
 					clearable
 					item-divider
 					prop="id"
+					data-cy="simple-multiselect-container"
 					class="multi-select-container flex items-center justify-between"
 					transition-name="vertical"
 					:options="options"

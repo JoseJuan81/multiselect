@@ -1,6 +1,6 @@
 const devPort = Cypress.env('devPort');
 
-context('Multiselector', () => {
+context('Multiselector con Objetos', () => {
 	beforeEach(() => {
 		cy.visit(`http://localhost:${devPort}/`);
 		cy.get('[data-cy="multiselect-container"]')
@@ -101,6 +101,8 @@ context('Multiselector', () => {
 			.children()
 			.first()
 			.find('[data-cy=closeTag]')
+			.click();
+		cy.get('[data-cy="multiselect-container"]')
 			.click();
 	})
 });
