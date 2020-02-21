@@ -57,7 +57,7 @@
 
 <script>
 import {
-	equality, find, map, setNewProperty,
+	equality, find, isEmpty, map, setNewProperty,
 } from 'functionallibrary';
 
 function mounted() {
@@ -78,6 +78,19 @@ function toogleMenu() {
 }
 
 function optionComputed() {
+	const sample = this.options[0];
+	const typeObject = typeof sample === 'object';
+	if (typeObject) {
+		return this.objectsInOptions;
+	}
+	return this.noObjectsInOptions;
+}
+
+function noObjectsInOptions() {
+	return this.options;
+}
+
+function objectsInOptions() {
 	if (this.multiselect) {
 		return this.value && this.value.length ? this.selectingOptions : this.options;
 	}
@@ -92,6 +105,35 @@ function selectingOptions() {
 }
 
 function addOrRemove(item, flag) {
+	const typeObject = typeof item === 'object';
+	if (typeObject) {
+		this.addOrRemoveObjects(item, flag);
+	} else {
+		this.addOrRemoveNoObjects(item, flag);
+	}
+}
+
+function addOrRemoveNoObjects(item, flag) {
+	this.currentOption = item;
+	if (this.multiselect) {
+		this.addOrRemoveInNoObjectMultiselect();
+	} else {
+		this.addOrRemoveInNoObjectSelect(flag);
+	}
+}
+
+function addOrRemoveInNoObjectSelect(flagAdd) {
+	if (isEmpty(this.value)) {
+		this.selected = [];
+	}
+	if (this.value[0] === this.currentOption) {
+		this.currentOption = '';
+	}
+	this.selected = typeof flagAdd === 'undefined' ? [this.currentOption] : [];
+	this.$emit('input', [...this.selected]);
+}
+
+function addOrRemoveObjects(item, flag) {
 	this.currentOption = { ...item };
 	this.currentOption.isSelected = typeof flag === 'undefined' ? !item.isSelected : flag;
 	if (this.multiselect) {
@@ -147,14 +189,19 @@ function data() {
 export default {
 	name: 'multi-select',
 	computed: {
+		objectsInOptions,
 		optionComputed,
+		noObjectsInOptions,
 		selectingOptions,
 	},
 	data,
 	methods: {
 		addOrRemove,
+		addOrRemoveInNoObjectSelect,
 		addOrRemoveInMultiselect,
 		addOrRemoveInSingleSelect,
+		addOrRemoveNoObjects,
+		addOrRemoveObjects,
 		allIsSelectedAction,
 		clearAction,
 		hideMenu,

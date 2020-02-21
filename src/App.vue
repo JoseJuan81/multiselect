@@ -94,6 +94,43 @@
 				</MultiSelect>
 			</div>
 		</div>
+		<div>
+			<h4>Selector simple con string</h4>
+			<div class="flex justify-center">
+				<MultiSelect
+					clearable
+					item-divider
+					data-cy="string-simple-multiselect-container"
+					class="multi-select-container flex items-center justify-between"
+					transition-name="vertical"
+					:options="stringOptions"
+					v-model="stringSelection"
+				>
+					<template v-slot:tag="{ tag }">
+						<span>{{tag}}</span>
+					</template>
+					<template v-slot:icon>
+						<div class="menu-icon">&#9757;</div>
+					</template>
+					<template v-slot:close-icon>
+						<span  class="icon-clear">&#9747;</span>
+					</template>
+					<template v-slot:menu="{ menuItem }">
+						<div
+							:class="[
+								'menu-item',
+							]"
+						>
+							<!-- <div
+								v-show="menuItem.isSelected"
+								:class="{ 'selected-icon': menuItem.isSelected }"
+							>&#9829;</div> -->
+							<span class="menu-item-name">{{menuItem}}</span>
+						</div>
+					</template>
+				</MultiSelect>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -112,6 +149,8 @@ function data() {
 			{ id: 5, name: 'Pepito' },
 		],
 		optionsSelected: [],
+		stringOptions: ['Rojo', 'Azul', 'Verde', 'Morado', 'Blanco', 'Negro', 'Amarillo'],
+		stringSelection: '',
 	};
 }
 
