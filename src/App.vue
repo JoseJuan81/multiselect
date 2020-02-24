@@ -115,16 +115,17 @@
 					<template v-slot:close-icon>
 						<span  class="icon-clear">&#9747;</span>
 					</template>
-					<template v-slot:menu="{ menuItem }">
+					<template v-slot:menu="{ menuItem, selected }">
 						<div
 							:class="[
 								'menu-item',
+								{ 'menu-item-selected': selected },
 							]"
 						>
-							<!-- <div
-								v-show="menuItem.isSelected"
-								:class="{ 'selected-icon': menuItem.isSelected }"
-							>&#9829;</div> -->
+							<div
+								v-show="selected"
+								:class="{ 'selected-icon': selected }"
+							>&#9829;</div>
 							<span class="menu-item-name">{{menuItem}}</span>
 						</div>
 					</template>

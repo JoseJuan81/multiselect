@@ -48,7 +48,7 @@
 					:class="{ 'menu-list': itemDivider }"
 					@click.stop="addOrRemove(option)"
 				>
-					<slot name="menu" :menu-item="option"></slot>
+					<slot name="menu" :menu-item="option" :selected="itemSelected(option)"></slot>
 				</li>
 			</ul>
 		</transition>
@@ -176,6 +176,13 @@ function allIsSelectedAction() {
 	this.allIsSelected = this.selected.length === this.options.length;
 }
 
+function itemSelected(item) {
+	if (!this.multiselect && this.selected[0] === item) {
+		return Boolean(find(equality(item), this.optionComputed));
+	}
+	return false;
+}
+
 function data() {
 	return {
 		allFlag: false,
@@ -205,6 +212,7 @@ export default {
 		allIsSelectedAction,
 		clearAction,
 		hideMenu,
+		itemSelected,
 		onSelectAll,
 		toogleMenu,
 	},

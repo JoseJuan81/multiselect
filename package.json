@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "core-js": "^3.4.4",
-    "functionallibrary": "^1.0.3",
+    "functionallibrary": "1.0.3",
     "vue": "^2.6.10"
   },
   "devDependencies": {
