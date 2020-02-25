@@ -132,6 +132,60 @@
 				</MultiSelect>
 			</div>
 		</div>
+		<div>
+			<h4>Multiselector con string</h4>
+			<div class="flex justify-center">
+				<MultiSelect
+					clearable
+					item-divider
+					select-all
+					multiselect
+					data-cy="string-simple-multiselect-container"
+					class="multi-select-container flex items-center justify-between"
+					transition-name="vertical"
+					:options="stringOptions"
+					v-model="stringMultiSelection"
+				>
+					<template v-slot:tag="{ tag, removeIt }">
+						<Tag @click.stop="removeIt(tag)">{{tag	}}</Tag>
+					</template>
+					<template v-slot:icon>
+						<div class="menu-icon">&#9757;</div>
+					</template>
+					<template v-slot:close-icon>
+						<span  class="icon-clear">&#9747;</span>
+					</template>
+					<template v-slot:select-all-items="{ isSelected }">
+						<div
+							:class="[
+								'menu-item',
+								{ 'menu-item-selected': isSelected },
+							]"
+						>
+							<div
+								v-show="isSelected"
+								:class="{ 'selected-icon': isSelected }"
+							>&#9829;</div>
+							<span class="menu-item-name">Todos</span>
+						</div>
+					</template>
+					<template v-slot:menu="{ menuItem, selected }">
+						<div
+							:class="[
+								'menu-item',
+								{ 'menu-item-selected': selected },
+							]"
+						>
+							<div
+								v-show="selected"
+								:class="{ 'selected-icon': selected }"
+							>&#9829;</div>
+							<span class="menu-item-name">{{menuItem}}</span>
+						</div>
+					</template>
+				</MultiSelect>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -152,6 +206,7 @@ function data() {
 		optionsSelected: [],
 		stringOptions: ['Rojo', 'Azul', 'Verde', 'Morado', 'Blanco', 'Negro', 'Amarillo'],
 		stringSelection: '',
+		stringMultiSelection: [],
 	};
 }
 

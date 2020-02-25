@@ -105,6 +105,8 @@ function selectingOptions() {
 }
 
 function addOrRemove(item, flag) {
+	// this.selected = this.SelectorInstance.itemsSelected(item);
+	// this.$emit('input', [...this.selected]);
 	const typeObject = typeof item === 'object';
 	if (typeObject) {
 		this.addOrRemoveObjects(item, flag);
@@ -116,10 +118,20 @@ function addOrRemove(item, flag) {
 function addOrRemoveNoObjects(item, flag) {
 	this.currentOption = item;
 	if (this.multiselect) {
-		this.addOrRemoveInNoObjectMultiselect();
+		this.addOrRemoveInNoObjectMultiselect(flag);
 	} else {
 		this.addOrRemoveInNoObjectSelect(flag);
 	}
+}
+
+function addOrRemoveInNoObjectMultiselect(flag) {
+	const itemIndex = this.value && this.value.findIndex(item => item === this.currentOption);
+	if (typeof itemIndex === 'number' && itemIndex > -1 && !flag) {
+		this.selected = this.selected.filter(item => item !== this.currentOption);
+	} else {
+		this.selected = this.selected.concat(this.currentOption);
+	}
+	this.$emit('input', [...this.selected]);
 }
 
 function addOrRemoveInNoObjectSelect(flagAdd) {
@@ -161,7 +173,9 @@ function addOrRemoveInMultiselect() {
 }
 
 function clearAction() {
-	this.value.forEach(u => this.addOrRemove(u, false));
+	this.selected = [];
+	this.$emit('input', [...this.selected]);
+	// this.value.forEach(u => this.addOrRemove(u, false));
 }
 
 function onSelectAll() {
@@ -180,7 +194,7 @@ function itemSelected(item) {
 	if (!this.multiselect && this.selected[0] === item) {
 		return Boolean(find(equality(item), this.optionComputed));
 	}
-	return false;
+	return Boolean(find(equality(item), this.value || []));
 }
 
 function data() {
@@ -204,6 +218,7 @@ export default {
 	data,
 	methods: {
 		addOrRemove,
+		addOrRemoveInNoObjectMultiselect,
 		addOrRemoveInNoObjectSelect,
 		addOrRemoveInMultiselect,
 		addOrRemoveInSingleSelect,
