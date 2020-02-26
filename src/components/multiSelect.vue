@@ -57,8 +57,9 @@
 
 <script>
 import {
-	equality, find, isEmpty, map, setNewProperty,
+	equality, find, map, setNewProperty,
 } from 'functionallibrary';
+import InstanceSelection from '@/class';
 
 function mounted() {
 	const self = this;
@@ -104,104 +105,43 @@ function selectingOptions() {
 	);
 }
 
-function addOrRemove(item, flag) {
-	// this.selected = this.SelectorInstance.itemsSelected(item);
-	// this.$emit('input', [...this.selected]);
-	const typeObject = typeof item === 'object';
-	if (typeObject) {
-		this.addOrRemoveObjects(item, flag);
-	} else {
-		this.addOrRemoveNoObjects(item, flag);
-	}
-}
-
-function addOrRemoveNoObjects(item, flag) {
-	this.currentOption = item;
-	if (this.multiselect) {
-		this.addOrRemoveInNoObjectMultiselect(flag);
-	} else {
-		this.addOrRemoveInNoObjectSelect(flag);
-	}
-}
-
-function addOrRemoveInNoObjectMultiselect(flag) {
-	const itemIndex = this.value && this.value.findIndex(item => item === this.currentOption);
-	if (typeof itemIndex === 'number' && itemIndex > -1 && !flag) {
-		this.selected = this.selected.filter(item => item !== this.currentOption);
-	} else {
-		this.selected = this.selected.concat(this.currentOption);
-	}
-	this.$emit('input', [...this.selected]);
-}
-
-function addOrRemoveInNoObjectSelect(flagAdd) {
-	if (isEmpty(this.value)) {
-		this.selected = [];
-	}
-	if (this.value[0] === this.currentOption) {
-		this.currentOption = '';
-	}
-	this.selected = typeof flagAdd === 'undefined' ? [this.currentOption] : [];
-	this.$emit('input', [...this.selected]);
-}
-
-function addOrRemoveObjects(item, flag) {
-	this.currentOption = { ...item };
-	this.currentOption.isSelected = typeof flag === 'undefined' ? !item.isSelected : flag;
-	if (this.multiselect) {
-		this.addOrRemoveInMultiselect();
-	} else {
-		this.addOrRemoveInSingleSelect();
-	}
-}
-
-function addOrRemoveInSingleSelect() {
-	if (this.value && this.value.length > 0) {
-		this.selected = [];
-	}
-	this.selected = this.currentOption.isSelected ? this.selected.concat(this.currentOption) : [];
-	this.$emit('input', [...this.selected]);
-}
-function addOrRemoveInMultiselect() {
-	if (this.currentOption.isSelected) {
-		this.selected = this.selected.concat(this.currentOption);
-	} else {
-		this.selected = this.selected.filter(f => f[this.prop] !== this.currentOption[this.prop]);
-	}
-	this.$emit('input', [...this.selected]);
-	this.allIsSelectedAction();
+function addOrRemove(item) {
+	this.selected = this.SelectorInstance.selection(item);
+	this.emitInputEvent();
 }
 
 function clearAction() {
-	this.selected = [];
+	this.selected = this.SelectorInstance.clearSelection();
+	this.emitInputEvent();
+}
+
+function emitInputEvent() {
 	this.$emit('input', [...this.selected]);
-	// this.value.forEach(u => this.addOrRemove(u, false));
 }
 
 function onSelectAll() {
-	if (this.value.length > 0) {
-		this.clearAction();
-	}
 	this.allFlag = !this.allFlag;
-	this.optionComputed.forEach(u => this.addOrRemove(u, this.allFlag));
+	this.selected = this.SelectorInstance.addOrRemoveEveryThing(this.allFlag, this.optionComputed);
+	this.emitInputEvent();
 }
 
-function allIsSelectedAction() {
-	this.allIsSelected = this.selected.length === this.options.length;
+function allIsSelected() {
+	return this.selected.length === this.options.length;
 }
 
 function itemSelected(item) {
-	if (!this.multiselect && this.selected[0] === item) {
-		return Boolean(find(equality(item), this.optionComputed));
-	}
-	return Boolean(find(equality(item), this.value || []));
+	return this.SelectorInstance.isSelected(item);
+}
+
+function multiselect(newVal) {
+	this.SelectorInstance = InstanceSelection(newVal, this.options[0], this.prop);
 }
 
 function data() {
 	return {
 		allFlag: false,
-		allIsSelected: false,
 		currentOption: {},
+		SelectorInstance: InstanceSelection(this.multiselect, this.options[0], this.prop),
 		selected: [],
 		showMenu: false,
 	};
@@ -210,6 +150,7 @@ function data() {
 export default {
 	name: 'multi-select',
 	computed: {
+		allIsSelected,
 		objectsInOptions,
 		optionComputed,
 		noObjectsInOptions,
@@ -218,14 +159,8 @@ export default {
 	data,
 	methods: {
 		addOrRemove,
-		addOrRemoveInNoObjectMultiselect,
-		addOrRemoveInNoObjectSelect,
-		addOrRemoveInMultiselect,
-		addOrRemoveInSingleSelect,
-		addOrRemoveNoObjects,
-		addOrRemoveObjects,
-		allIsSelectedAction,
 		clearAction,
+		emitInputEvent,
 		hideMenu,
 		itemSelected,
 		onSelectAll,
@@ -274,6 +209,9 @@ export default {
 			type: String,
 		},
 		value: null,
+	},
+	watch: {
+		multiselect,
 	},
 };
 </script>
