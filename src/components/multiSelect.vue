@@ -59,7 +59,7 @@
 import {
 	equality, find, map, setNewProperty,
 } from 'functionallibrary';
-import InstanceSelection from '@/class';
+import InstanceSelection from '../class';
 
 function mounted() {
 	const self = this;
