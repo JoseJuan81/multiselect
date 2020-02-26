@@ -140,7 +140,6 @@ function multiselect(newVal) {
 function data() {
 	return {
 		allFlag: false,
-		currentOption: {},
 		SelectorInstance: InstanceSelection(this.multiselect, this.options[0], this.prop),
 		selected: [],
 		showMenu: false,
