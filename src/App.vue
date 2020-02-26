@@ -140,7 +140,7 @@
 					item-divider
 					select-all
 					multiselect
-					data-cy="string-simple-multiselect-container"
+					data-cy="string-multiselect-container"
 					class="multi-select-container flex items-center justify-between"
 					transition-name="vertical"
 					:options="stringOptions"
