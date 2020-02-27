@@ -14,11 +14,11 @@ npm install --save multiselect
 in your `main.js`
 ```js
 import Vue from 'vue';
-import { Multiselect, Tag } from 'multiselect';
+import { install } from 'multiselect';
 
-Vue.use(Multiselect);
-Vue.use(Tag);
+Vue.use(install);
 ```
+> The global way includes the `Tag` component.
 ## Local Use
 in your `.vue` file
 ```js
