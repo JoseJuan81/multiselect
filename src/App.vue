@@ -323,11 +323,10 @@ h4 {
 	color: #4dd599;
 }
 .vertical-enter-active, .vertical-leave-active {
-  transition: opacity 1.5s;
+  transition: opacity 250ms;
 }
 .vertical-enter, .vertical-leave-to {
   opacity: 0;
-  transform: translate3d(20px, 30px, 40px);
 }
 .selected-icon {
 	left: 0;

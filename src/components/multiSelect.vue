@@ -28,29 +28,30 @@
 			</div>
 		</div>
 		<transition :name="transitionName" :mode="transitionMode">
-			<ul
-				v-if="showMenu"
-				data-cy="multiselect-menu"
-				class="multi-select-menu"
-				:style="`max-height:${menuMaxHeight}`"
-			>
-				<li
-					v-if="selectAll"
-					data-cy="selectAll"
-					:class="{ 'menu-list': itemDivider }"
-					@click.stop="onSelectAll"
+			<div v-if="showMenu">
+				<ul
+					data-cy="multiselect-menu"
+					class="multi-select-menu"
+					:style="`max-height:${menuMaxHeight}`"
 				>
-					<slot name="select-all-items" :is-selected="allIsSelected"></slot>
-				</li>
-				<li
-					v-for="(option, indexO) in optionComputed"
-					:key="indexO"
-					:class="{ 'menu-list': itemDivider }"
-					@click.stop="addOrRemove(option)"
-				>
-					<slot name="menu" :menu-item="option" :selected="itemSelected(option)"></slot>
-				</li>
-			</ul>
+					<li
+						v-if="selectAll"
+						data-cy="selectAll"
+						:class="{ 'menu-list': itemDivider }"
+						@click.stop="onSelectAll"
+					>
+						<slot name="select-all-items" :is-selected="allIsSelected"></slot>
+					</li>
+					<li
+						v-for="(option, indexO) in optionComputed"
+						:key="indexO"
+						:class="{ 'menu-list': itemDivider }"
+						@click.stop="addOrRemove(option)"
+					>
+						<slot name="menu" :menu-item="option" :selected="itemSelected(option)"></slot>
+					</li>
+				</ul>
+			</div>
 		</transition>
 	</div>
 </template>
