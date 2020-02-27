@@ -1,12 +1,12 @@
 const devPort = Cypress.env('devPort');
 
-context('Simple Selector', () => {
+context('Selector Simple con No Objetos', () => {
 	beforeEach(() => {
 		cy.visit(`http://localhost:${devPort}/`);
-		cy.get('[data-cy="simple-multiselect-container"]')
+		cy.get('[data-cy="string-simple-container"]')
 			.click();
 	})
-	it('Seleccionar 1 item',  () => {
+	it('Hacer click en 3 items pero solo el último debe estar seleccionado',  () => {
 		cy.get('[data-cy="multiselect-menu"]')
 			.should('exist')
 			.children('li')

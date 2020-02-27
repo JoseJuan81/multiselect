@@ -62,7 +62,7 @@
 					clearable
 					item-divider
 					prop="id"
-					data-cy="simple-multiselect-container"
+					data-cy="simple-object-selector-container"
 					class="multi-select-container flex items-center justify-between"
 					transition-name="vertical"
 					:options="options"
@@ -100,7 +100,7 @@
 				<MultiSelect
 					clearable
 					item-divider
-					data-cy="string-simple-multiselect-container"
+					data-cy="string-simple-container"
 					class="multi-select-container flex items-center justify-between"
 					transition-name="vertical"
 					:options="stringOptions"

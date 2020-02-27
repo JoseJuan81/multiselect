@@ -1,9 +1,9 @@
 const devPort = Cypress.env('devPort');
 
-context('Multiselector con No Objetos', () => {
+context('Multiselector con Objetos', () => {
 	beforeEach(() => {
 		cy.visit(`http://localhost:${devPort}/`);
-		cy.get('[data-cy="string-multiselect-container"]')
+		cy.get('[data-cy="multiselect-container"]')
 			.click();
 	})
 	it('Seleccionar 3 items: primero, segundo y último',  () => {
@@ -40,12 +40,12 @@ context('Multiselector con No Objetos', () => {
 		// Verificar que 3 items esten seleccionados en el menú
 		cy.get('[data-cy="multiselect-menu"]')
 			.find('.menu-item-selected')
-			.should('have.length', 5);
+			.should('have.length', 3);
 		// Verificar hayan 3 elementos en el campo de selección
 		cy.get('[data-cy="tags"]')
 			.children()
 			.children()
-			.should('have.length', 5);
+			.should('have.length', 3);
 	})
 	it('Deseleccionar todos los elementos con el botón "clearable"', () => {
 		cy.get('[data-cy="multiselect-menu"]')
@@ -61,7 +61,7 @@ context('Multiselector con No Objetos', () => {
 			.children('li')
 			.last()
 			.click();
-		cy.get('[data-cy="string-multiselect-container"]')
+		cy.get('[data-cy="multiselect-container"]')
 			.find('[data-cy="clearable"]')
 			.should('exist')
 			.click();
@@ -72,13 +72,13 @@ context('Multiselector con No Objetos', () => {
 		cy.get('[data-cy="tags"]')
 			.children('.tag')
 			.should('not.exist');
-		cy.get('[data-cy="string-multiselect-container"]')
+		cy.get('[data-cy="multiselect-container"]')
 			.click();
 	})
 	it('Seleccionar todos los items con un click', () => {
 		cy.get('[data-cy=selectAll]')
 			.click();
-		cy.get('[data-cy="string-multiselect-container"]')
+		cy.get('[data-cy="multiselect-container"]')
 			.click();
 	})
 	it('Deseleccionar todos los items con un click', () => {
@@ -86,7 +86,7 @@ context('Multiselector con No Objetos', () => {
 			.click();
 		cy.get('[data-cy=selectAll]')
 			.click();
-		cy.get('[data-cy="string-multiselect-container"]')
+		cy.get('[data-cy="multiselect-container"]')
 			.click();
 	})
 	it('Eliminar tags desde su respectiva x', () => {
@@ -102,7 +102,7 @@ context('Multiselector con No Objetos', () => {
 			.first()
 			.find('[data-cy=closeTag]')
 			.click();
-		cy.get('[data-cy="string-multiselect-container"]')
+		cy.get('[data-cy="multiselect-container"]')
 			.click();
 	})
 });
