@@ -5,8 +5,8 @@
 			<div class="flex justify-center">
 				<MultiSelect
 					clearable
-					item-divider
 					select-all
+					item-divider
 					multiselect
 					prop="id"
 					data-cy="multiselect-container"
