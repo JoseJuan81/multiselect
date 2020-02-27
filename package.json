@@ -7,7 +7,7 @@
   "browser": {
     "./sfc": "src/components/MultiSelect.vue"
   },
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "vue-cli-service serve",
     "prod": "vue-cli-service build",
