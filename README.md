@@ -1,4 +1,4 @@
-# Multiselect
+# Multiselect-dl
 <img src="https://travis-ci.org/JoseJuan81/multiselect.svg?branch=dev">
 <img alt="GitHub" src="https://img.shields.io/github/license/josejuan81/multiselect">
 <img alt="npm" src="https://img.shields.io/npm/dm/multiselect-db">
@@ -9,7 +9,7 @@
 
 ## Install
 ```code
-npm install --save multiselect
+npm install --save multiselect-db
 ```
 ## Global Use
 in your `main.js`
@@ -60,7 +60,7 @@ icon | `slot` for icon to activate menu
 menu | `slot` for menu (menu items)
 
 ## Multiselector
-<img src="./src/assets/multiselector.png">
+<img src="https://japi-static.s3.amazonaws.com/japi-sales-error/Captura-de-pantalla-2020-02-27-a-la%28s%29-15.14.33.png">
 
 ```html
 <div>
@@ -262,7 +262,7 @@ h4 {
 
 ## Simple Selector
 
-<img src="./src/assets/simpleSelection.png">
+<img src="https://japi-static.s3.amazonaws.com/japi-sales-error/Captura-de-pantalla-2020-02-27-a-la%28s%29-18.01.16.png">
 
 ```html
 <h4>Selector simple con string</h4>
