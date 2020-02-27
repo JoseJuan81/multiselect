@@ -1,6 +1,6 @@
 {
   "name": "multiselect-db",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/Multiselect.umd.js",
   "module": "dist/Multiselec.esm.js",
   "unpkg": "dist/Multiselec.min.js",
