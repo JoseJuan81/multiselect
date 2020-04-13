@@ -181,7 +181,7 @@ export default {
 			type: String,
 		},
 		minHeight: {
-			default: '2.5rem',
+			default: '0.5rem',
 			type: String,
 		},
 		multiselect: {
@@ -222,6 +222,9 @@ export default {
 .w-full {
 	width: 100%;
 }
+.flex {
+	display: flex;
+}
 .flex-initial {
 	flex: 0 1 auto;
 }
@@ -230,6 +233,12 @@ export default {
 }
 .flex-auto {
 	flex: 1 1 auto;
+}
+.items-center {
+	align-items: center;
+}
+.justify-between {
+	justify-content: space-between;
 }
 .text-right {
 	text-align: right;
