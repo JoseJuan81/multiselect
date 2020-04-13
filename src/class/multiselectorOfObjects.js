@@ -1,4 +1,6 @@
-import { map, setNewProperty } from 'functionallibrary';
+import {
+	find, equality, map, setNewProperty,
+} from 'functionallibrary';
 import Selector from './main';
 
 class MultiSelectorOfObjects extends Selector {
@@ -19,6 +21,10 @@ class MultiSelectorOfObjects extends Selector {
 		const newItem = setNewProperty('isSelected', !item.isSelected)(item);
 		this.selected = newItem.isSelected ? this.addItem(newItem) : this.removeItem(newItem);
 		return this.selected;
+	}
+
+	isSelected(item) {
+		return Boolean(find(equality(this.prop, item[this.prop]), this.selected));
 	}
 }
 

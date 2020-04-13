@@ -1,4 +1,4 @@
-import { setNewProperty } from 'functionallibrary';
+import { equality, find, setNewProperty } from 'functionallibrary';
 import Selector from './main';
 
 class SimpleSelectorOfObjects extends Selector {
@@ -6,6 +6,10 @@ class SimpleSelectorOfObjects extends Selector {
 		const newItem = setNewProperty('isSelected', !item.isSelected)(item);
 		this.selected = newItem.isSelected ? [newItem] : [];
 		return this.selected;
+	}
+
+	isSelected(item) {
+		return Boolean(find(equality(this.prop, item[this.prop]), this.selected));
 	}
 }
 
