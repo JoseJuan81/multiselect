@@ -2,7 +2,7 @@
 	<div id="app">
 		<div>
 			<h4>Multiselector de objetos</h4>
-			<div class="flex justify-center">
+			<div class="flex-display justify-center">
 				<MultiSelect
 					clearable
 					select-all
@@ -10,7 +10,7 @@
 					multiselect
 					prop="id"
 					data-cy="multiselect-container"
-					class="multi-select-container flex items-center justify-between"
+					class="multi-select-container flex-display items-center justify-between"
 					transition-name="vertical"
 					:options="options"
 					v-model="optionsSelected"
@@ -57,13 +57,13 @@
 		</div>
 		<div>
 			<h4>Selector simple de objetos</h4>
-			<div class="flex justify-center">
+			<div class="flex-display justify-center">
 				<MultiSelect
 					clearable
 					item-divider
 					prop="id"
 					data-cy="simple-object-selector-container"
-					class="multi-select-container flex items-center justify-between"
+					class="multi-select-container flex-display items-center justify-between"
 					transition-name="vertical"
 					:options="options"
 					v-model="oneSelection"
@@ -96,12 +96,12 @@
 		</div>
 		<div>
 			<h4>Selector simple con string</h4>
-			<div class="flex justify-center">
+			<div class="flex-display justify-center">
 				<MultiSelect
 					clearable
 					item-divider
 					data-cy="string-simple-container"
-					class="multi-select-container flex items-center justify-between"
+					class="multi-select-container flex-display items-center justify-between"
 					transition-name="vertical"
 					:options="stringOptions"
 					v-model="stringSelection"
@@ -134,14 +134,14 @@
 		</div>
 		<div>
 			<h4>Multiselector con string</h4>
-			<div class="flex justify-center">
+			<div class="flex-display justify-center">
 				<MultiSelect
 					clearable
 					item-divider
 					select-all
 					multiselect
 					data-cy="string-multiselect-container"
-					class="multi-select-container flex items-center justify-between"
+					class="multi-select-container flex-display items-center justify-between"
 					transition-name="vertical"
 					:options="stringOptions"
 					v-model="stringMultiSelection"
@@ -240,7 +240,7 @@ h4 {
 	margin: 0;
 }
 
-.flex {
+.flex-display {
 	display: flex;
 }
 .items-center {
