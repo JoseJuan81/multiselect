@@ -57,7 +57,7 @@ name | Description
 tag | `slot` for item selected in the input
 close-icon | `slot` for icon to clear selected items
 icon | `slot` for icon to activate menu
-menu | `slot` for menu (menu items)
+menu | `slot` for menu (menu items). props = { menuItem, selected, menuIndex }
 
 ## Multiselector
 <img src="https://japi-static.s3.amazonaws.com/japi-sales-error/Captura-de-pantalla-2020-02-27-a-la%28s%29-15.14.33.png">

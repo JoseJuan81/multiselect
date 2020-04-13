@@ -51,7 +51,7 @@
 						<slot
 							name="menu"
 							:menu-item="option"
-							:item-index="indexO"
+							:index-item="indexO"
 							:selected="itemSelected(option)"></slot>
 					</li>
 				</ul>
