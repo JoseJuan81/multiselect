@@ -24,11 +24,11 @@ Vue.use(install);
 in your `.vue` file
 ```js
 <script>
-import { Multiselect, Tag } from 'multiselect-dl';
+import { MultiSelect, Tag } from 'multiselect-dl';
 export default {
 	name: 'component-name',
 	components: {
-		Multiselect,
+		MultiSelect,
 		Tag,
 	},
 }
