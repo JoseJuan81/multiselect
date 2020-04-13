@@ -43,7 +43,7 @@ name | value | comments
 clearable | boolean | hide or show the "x" red button. Clear all selected items from input.
 item-divider | boolean | hide or show line to divide items in menu
 menuMaxHeight | string | menu max height. Default `auto`.
-minHeight | string | menu min height. Default `2.5rem`.
+minHeight | string | menu min height. Default `0.5rem`.
 multiselect | boolean | If It's `true` multi selections is available but It's `false` only simple selection is available
 selectAll | boolean | It works in multi selections and with `select-all-items` slot. This prop select / unselect all items in menu items 
 options | array | options to show in menu items

@@ -4,20 +4,20 @@
 		:style="`min-height:${minHeight};`"
 		@click.stop="toogleMenu"
 	>
-		<div class="flex w-full items-center justify-between">
+		<div class="flex-display w-full items-center justify-between">
 			<div
 				data-cy="tags"
-				class="flex flex-initial flex-wrap">
+				class="flex-display flex-initial flex-wrap">
 				<span
-					class="flex items-center"
+					class="flex-display items-center"
 					v-for="(tag, index) in value"
 					:key="index"
 				>
 					<slot name="tag" :tag="tag" :removeIt="addOrRemove"></slot>
 				</span>
 			</div>
-			<div class="flex flex-auto justify-end">
-				<div class="flex items-center">
+			<div class="flex-display flex-auto justify-end">
+				<div class="flex-display items-center">
 					<div data-cy="clearable" @click.stop="clearAction" v-if="clearable">
 						<slot name="close-icon"></slot>
 					</div>
@@ -222,7 +222,7 @@ export default {
 .w-full {
 	width: 100%;
 }
-.flex {
+.flex-display {
 	display: flex;
 }
 .flex-initial {
