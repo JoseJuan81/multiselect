@@ -4,9 +4,13 @@ import buble from '@rollup/plugin-buble';
 
 export default {
 	input: 'src/index.js',
+	external: ['functionallibrary'],
 	output: {
 		name: 'MultiSelect',
 		exports: 'named',
+		globals: {
+			functionallibrary: 'functionallibrary',
+		},
 	},
 	plugins: [
 		commonjs(),
