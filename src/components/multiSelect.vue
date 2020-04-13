@@ -249,4 +249,32 @@ export default {
 	transform-origin: center;
 	transition: transform 0.175s linear;
 }
+
+.multi-select-menu {
+	background-color: white;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	display: block;
+	left: 0;
+	margin: 0.25rem 0 0;
+	min-width: 10rem;
+	overflow: auto;
+	padding: 0.5rem 0;
+	position: absolute;
+	transition: display 1s ease-in;
+	text-align: center;
+	list-style: none;
+	top: 100%;
+	z-index: 99;
+
+	.menu-list {
+		border-bottom: 1px solid #ddddc7;
+		cursor: pointer;
+	}
+	.menu-list:hover {
+		background-color: #efecea;
+	}
+	.menu-list:last-child {
+		border: none;
+	}
+}
 </style>
