@@ -48,7 +48,11 @@
 						:class="{ 'menu-list': itemDivider }"
 						@click.stop="addOrRemove(option)"
 					>
-						<slot name="menu" :menu-item="option" :selected="itemSelected(option)"></slot>
+						<slot
+							name="menu"
+							:menu-item="option"
+							:item-index="indexO"
+							:selected="itemSelected(option)"></slot>
 					</li>
 				</ul>
 			</div>
