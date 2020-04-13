@@ -17,7 +17,7 @@ class MultiSelectorOfObjects extends Selector {
 
 	selection(item) {
 		const newItem = setNewProperty('isSelected', !item.isSelected)(item);
-		this.selected = newItem.isSelected ? this.addItem(item) : this.removeItem(item);
+		this.selected = newItem.isSelected ? this.addItem(newItem) : this.removeItem(newItem);
 		return this.selected;
 	}
 }

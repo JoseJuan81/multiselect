@@ -1,4 +1,4 @@
-import MultiSelectorOfObjects from './multiSelectorOfObjects';
+import MultiSelectorOfObjects from './multiselectorOfObjects';
 import MultiSelectorOfNonObjects from './multiSelectorOfNonObject';
 import SimpleSelectorOfObjects from './simpleSelectorOfObject';
 import SimpleSelectorOfNonObjects from './simpleSelectorOfNonObject';

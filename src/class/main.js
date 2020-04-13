@@ -1,4 +1,4 @@
-import { equality, find } from 'functionallibrary';
+import { find, equality } from 'functionallibrary';
 
 class Selector {
 	constructor(prop) {
