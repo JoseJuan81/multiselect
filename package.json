@@ -1,6 +1,6 @@
 {
   "name": "multiselect-dl",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "main": "dist/Multiselect.umd.js",
   "module": "dist/Multiselec.esm.js",
   "unpkg": "dist/Multiselec.min.js",
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "core-js": "^3.4.4",
-    "functionallibrary": "^1.0.5",
+    "functionallibrary": "^1.0.6",
     "vue": "^2.6.10"
   },
   "devDependencies": {
