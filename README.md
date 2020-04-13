@@ -9,13 +9,13 @@
 
 ## Install
 ```code
-npm install --save multiselect-db
+npm install --save multiselect-dl
 ```
 ## Global Use
 in your `main.js`
 ```js
 import Vue from 'vue';
-import { install } from 'multiselect';
+import { install } from 'multiselect-dl';
 
 Vue.use(install);
 ```
@@ -24,7 +24,7 @@ Vue.use(install);
 in your `.vue` file
 ```js
 <script>
-import { Multiselect, Tag } from 'multiselect';
+import { Multiselect, Tag } from 'multiselect-dl';
 export default {
 	name: 'component-name',
 	components: {
