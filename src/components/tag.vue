@@ -14,6 +14,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 	.tag-container {
+		align-items: center;
 		background-color: #c6cbef;
 		border: 1px solid #494ca2;
 		border-radius: 5px;

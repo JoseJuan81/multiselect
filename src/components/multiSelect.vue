@@ -37,7 +37,7 @@
 					<li
 						v-if="selectAll"
 						data-cy="selectAll"
-						:class="{ 'menu-list': itemDivider }"
+						class="menu-list"
 						@click.stop="onSelectAll"
 					>
 						<slot name="select-all-items" :is-selected="allIsSelected"></slot>
@@ -45,7 +45,7 @@
 					<li
 						v-for="(option, indexO) in optionComputed"
 						:key="indexO"
-						:class="{ 'menu-list': itemDivider }"
+						class="menu-list"
 						@click.stop="addOrRemove(option)"
 					>
 						<slot
@@ -176,10 +176,6 @@ export default {
 			default: false,
 			type: Boolean,
 		},
-		itemDivider: {
-			default: false,
-			type: Boolean,
-		},
 		menuMaxHeight: {
 			default: 'auto',
 			type: String,
@@ -269,16 +265,5 @@ export default {
 	list-style: none;
 	top: 100%;
 	z-index: 99;
-
-	.menu-list {
-		border-bottom: 1px solid #ddddc7;
-		cursor: pointer;
-	}
-	.menu-list:hover {
-		background-color: #efecea;
-	}
-	.menu-list:last-child {
-		border: none;
-	}
 }
 </style>

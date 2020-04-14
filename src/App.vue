@@ -147,7 +147,7 @@
 					v-model="stringMultiSelection"
 				>
 					<template v-slot:tag="{ tag, removeIt }">
-						<Tag @click.stop="removeIt(tag)">{{tag	}}</Tag>
+						<Tag @click.stop="removeIt(tag)">{{tag}}</Tag>
 					</template>
 					<template v-slot:icon>
 						<div class="menu-icon">&#9757;</div>
@@ -286,9 +286,13 @@ h4 {
 }
 
 .menu-item {
+	border-bottom: 1px solid brown;
 	display: flex;
 	justify-content: center;
 	padding: 0.75rem 1.25rem;
+}
+.menu-item:hover {
+	background-color: aqua;
 }
 .menu-item-selected,
 .selected-icon {
