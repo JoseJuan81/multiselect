@@ -1,9 +1,9 @@
-import MultiSelect from './components/multiSelect.vue';
+import MultiSelectDl from './components/multiSelect.vue';
 
 export function install(Vue) {
 	if (install.installed) return;
 	install.installed = true;
-	Vue.component('multi-select-dl', MultiSelect);
+	Vue.component('multi-select-dl', MultiSelectDl);
 }
 
 const plugin = {
@@ -22,4 +22,4 @@ if (GlobalVue) {
 	GlobalVue.use(plugin);
 }
 
-export default MultiSelect;
+export default MultiSelectDl;

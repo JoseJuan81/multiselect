@@ -1,11 +1,11 @@
 {
   "name": "multiselect-dl",
-  "version": "0.1.17",
-  "main": "dist/MultiSelect.umd.js",
-  "module": "dist/Multiselec.esm.js",
-  "unpkg": "dist/Multiselec.min.js",
+  "version": "0.1.18",
+  "main": "dist/multi-select-dl.umd.js",
+  "module": "dist/multi-select-dl.esm.js",
+  "unpkg": "dist/multi-select-dl.min.js",
   "browser": {
-    "./sfc": "src/components/MultiSelect.vue"
+    "./sfc": "src/components/multi-select-dl.vue"
   },
   "private": false,
   "scripts": {
@@ -15,9 +15,9 @@
     "test": "cypress run",
     "cy:open": "cypress open",
     "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
-    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/MultiSelect.min.js",
-    "build:es": "rollup --config build/rollup.config.js --format es --file dist/MultiSelect.esm.js",
-    "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/MultiSelect.umd.js"
+    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/multi-select-dl.min.js",
+    "build:es": "rollup --config build/rollup.config.js --format es --file dist/multi-select-dl.esm.js",
+    "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/multi-select-dl.umd.js"
   },
   "dependencies": {
     "core-js": "^3.4.4",
