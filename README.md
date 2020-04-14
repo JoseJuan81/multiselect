@@ -54,7 +54,7 @@ transitionMode | string | The name of the `vue-transition` mode (`out-in` / `in-
 ### Slots
 name | Description
 -----| ------
-tag | `slot` for item selected in the input
+tag | `slot` for item selected in the input. props = { tag }. Tag is a selected item and can be one or more.
 close-icon | `slot` for icon to clear selected items
 icon | `slot` for icon to activate menu
 menu | `slot` for menu (menu items). props = { menuItem, selected, menuIndex }
