@@ -4,8 +4,7 @@
 <img alt="npm" src="https://img.shields.io/npm/dm/multiselect-db">
 
 > **multiselect** is a `vue` component used to select multiple options at the same time.
-> This component only has basic and general style and the users can style it the way they wants, that's why this component can be used in any vue project.
-> Multiselect comes with a optional `Tag` component that can be used in the ***tag*** slot.
+> This component only has basic and general style and the users can style it the way they want, that's why this component can be used in any vue project.
 
 ## Install
 ```code
@@ -24,12 +23,11 @@ Vue.use(install);
 in your `.vue` file
 ```js
 <script>
-import { MultiSelect, Tag } from 'multiselect-dl';
+import MultiSelect from 'multiselect-dl';
 export default {
 	name: 'component-name',
 	components: {
 		MultiSelect,
-		Tag,
 	},
 }
 ...
@@ -164,7 +162,7 @@ h4 {
 	margin: 0;
 }
 
-.flex {
+.flex-display {
 	display: flex;
 }
 .items-center {
@@ -185,34 +183,6 @@ h4 {
 	border-radius: 0.5rem;
 	padding: 0.5rem;
 	width: 45%;
-
-	.multi-select-menu {
-		background-color: white;
-		box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-		display: block;
-		left: 0;
-		margin: 0.25rem 0 0;
-		min-width: 10rem;
-		overflow: auto;
-		padding: 0.5rem 0;
-		position: absolute;
-		transition: display 1s ease-in;
-		text-align: center;
-		list-style: none;
-		top: 100%;
-		z-index: 99;
-
-		.menu-list {
-			border-bottom: 1px solid #ddddc7;
-			cursor: pointer;
-		}
-		.menu-list:hover {
-			background-color: #efecea;
-		}
-		.menu-list:last-child {
-			border: none;
-		}
-	}
 
 	.icon-clear {
 		align-items: center;
@@ -238,20 +208,23 @@ h4 {
 }
 
 .menu-item {
+	border-bottom: 1px solid brown;
 	display: flex;
 	justify-content: center;
 	padding: 0.75rem 1.25rem;
+}
+.menu-item:hover {
+	background-color: aqua;
 }
 .menu-item-selected,
 .selected-icon {
 	color: #4dd599;
 }
 .vertical-enter-active, .vertical-leave-active {
-  transition: opacity 1.5s;
+  transition: opacity 250ms;
 }
 .vertical-enter, .vertical-leave-to {
   opacity: 0;
-  transform: translate3d(20px, 30px, 40px);
 }
 .selected-icon {
 	left: 0;
