@@ -1,6 +1,7 @@
 <template>
 	<div
 		class="relative"
+		ref="multiselect"
 		:style="`min-height:${minHeight};`"
 		@click.stop="toogleMenu"
 	>
@@ -31,6 +32,7 @@
 			<div v-if="showMenu">
 				<ul
 					data-cy="multiselect-menu"
+					ref="multiselect-menu"
 					class="multi-select-menu"
 					:style="`max-height:${menuMaxHeight}`"
 				>
@@ -65,6 +67,7 @@ import {
 	equality, find, map, setNewProperty,
 } from 'functionallibrary';
 import InstanceSelection from '../class';
+import MenuLocation from '../class/menuLocation';
 
 function mounted() {
 	const self = this;
@@ -81,6 +84,24 @@ function hideMenu() {
 
 function toogleMenu() {
 	this.showMenu = !this.showMenu;
+	if (this.showMenu) {
+		this.$nextTick(() => {
+			this.checkPageBottom();
+		});
+	}
+}
+
+function checkPageBottom() {
+	const pageHeight = window.innerHeight;
+	const multiselectContainer = this.$refs.multiselect;
+	const multiselectMenu = this.$refs['multiselect-menu'];
+	const menuLocation = new MenuLocation(pageHeight, multiselectContainer, multiselectMenu);
+	multiselectMenu.style.height = menuLocation.menuHeight;
+	if (menuLocation.menuTop) {
+		multiselectMenu.style.bottom = '105%';
+	} else {
+		multiselectMenu.style.top = '100%';
+	}
 }
 
 function optionComputed() {
@@ -164,6 +185,7 @@ export default {
 	methods: {
 		addOrRemove,
 		clearAction,
+		checkPageBottom,
 		emitInputEvent,
 		hideMenu,
 		itemSelected,
@@ -263,7 +285,6 @@ export default {
 	transition: display 1s ease-in;
 	text-align: center;
 	list-style: none;
-	top: 100%;
 	z-index: 99;
 }
 </style>
