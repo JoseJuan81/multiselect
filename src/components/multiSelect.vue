@@ -1,13 +1,21 @@
 <template>
 	<div
 		class="relative"
+		ref="multiselect"
 		:style="`min-height:${minHeight};`"
 		@click.stop="toogleMenu"
 	>
 		<div class="flex-display w-full items-center justify-between">
 			<div
 				data-cy="tags"
-				class="flex-display flex-initial flex-wrap">
+				class="flex-display flex-initial flex-wrap"
+			>
+				<input type="text" ref="input" class="hidden-input"
+					@keydown.enter="selectingItem"
+					@keydown.down="updateHoverIndex(1)"
+					@keydown.up="updateHoverIndex(-1)"
+					@keydown.esc="closeMenu"
+				>
 				<span
 					class="flex-display items-center"
 					v-for="(tag, index) in value"
@@ -31,6 +39,7 @@
 			<div v-if="showMenu">
 				<ul
 					data-cy="multiselect-menu"
+					ref="multiselect-menu"
 					class="multi-select-menu"
 					:style="`max-height:${menuMaxHeight}`"
 				>
@@ -51,6 +60,7 @@
 						<slot
 							name="menu"
 							:menu-item="option"
+							:is-hovered="indexO === hoverIndex"
 							:index-item="indexO"
 							:selected="itemSelected(option)"></slot>
 					</li>
@@ -65,6 +75,7 @@ import {
 	equality, find, map, setNewProperty,
 } from 'functionallibrary';
 import InstanceSelection from '../class';
+import MenuLocation from '../class/menuLocation';
 
 function mounted() {
 	const self = this;
@@ -81,6 +92,26 @@ function hideMenu() {
 
 function toogleMenu() {
 	this.showMenu = !this.showMenu;
+	if (this.showMenu) {
+		this.$refs.input.focus();
+		this.$nextTick(() => {
+			this.checkPageBottom();
+			this.setHoverIndex(0);
+		});
+	}
+}
+
+function checkPageBottom() {
+	const pageHeight = window.innerHeight;
+	const multiselectContainer = this.$refs.multiselect;
+	const multiselectMenu = this.$refs['multiselect-menu'];
+	const menuLocation = new MenuLocation(pageHeight, multiselectContainer, multiselectMenu);
+	multiselectMenu.style.height = menuLocation.menuHeight;
+	if (menuLocation.menuTop) {
+		multiselectMenu.style.bottom = '105%';
+	} else {
+		multiselectMenu.style.top = '100%';
+	}
 }
 
 function optionComputed() {
@@ -105,7 +136,17 @@ function objectsInOptions() {
 
 function selectingOptions() {
 	return map(
-		setNewProperty('isSelected', o => Boolean(find(equality(this.prop, o[this.prop]), this.value))),
+		setNewProperty(
+			'isSelected',
+			o => Boolean(
+				find(
+					equality(
+						this.prop, o[this.prop],
+					),
+					this.value,
+				),
+			),
+		),
 		this.options,
 	);
 }
@@ -142,9 +183,30 @@ function multiselect(newVal) {
 	this.SelectorInstance = InstanceSelection(newVal, this.options[0], this.prop);
 }
 
+function setHoverIndex(index) {
+	this.hoverIndex = index;
+}
+
+function updateHoverIndex(k) {
+	const last = this.options.length;
+	let newIndex = this.hoverIndex + k;
+	newIndex = newIndex < 0 ? last - 1 : newIndex;
+	this.hoverIndex = newIndex % last;
+}
+
+function selectingItem() {
+	const currentItem = this.optionComputed[this.hoverIndex];
+	this.addOrRemove(currentItem);
+}
+
+function closeMenu() {
+	this.showMenu = false;
+}
+
 function data() {
 	return {
 		allFlag: false,
+		hoverIndex: null,
 		SelectorInstance: InstanceSelection(this.multiselect, this.options[0], this.prop),
 		selected: [],
 		showMenu: false,
@@ -164,11 +226,16 @@ export default {
 	methods: {
 		addOrRemove,
 		clearAction,
+		closeMenu,
+		checkPageBottom,
 		emitInputEvent,
 		hideMenu,
 		itemSelected,
 		onSelectAll,
+		selectingItem,
+		setHoverIndex,
 		toogleMenu,
+		updateHoverIndex,
 	},
 	mounted,
 	props: {
@@ -263,7 +330,13 @@ export default {
 	transition: display 1s ease-in;
 	text-align: center;
 	list-style: none;
-	top: 100%;
 	z-index: 99;
+}
+
+.hidden-input {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	width: 0;
 }
 </style>

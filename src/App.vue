@@ -38,10 +38,11 @@
 							<span class="menu-item-name">Todos</span>
 						</div>
 					</template>
-					<template v-slot:menu="{ menuItem }">
+					<template v-slot:menu="{ menuItem, isHovered }">
 						<div
 							:class="[
 								'menu-item',
+								{ 'menu-item-hover': isHovered },
 								{ 'menu-item-selected': menuItem.isSelected },
 							]"
 						>
@@ -77,10 +78,11 @@
 					<template v-slot:close-icon>
 						<span  class="icon-clear">&#9747;</span>
 					</template>
-					<template v-slot:menu="{ menuItem }">
+					<template v-slot:menu="{ menuItem, isHovered }">
 						<div
 							:class="[
 								'menu-item',
+								{ 'menu-item-hover': isHovered },
 								{ 'menu-item-selected': menuItem.isSelected },
 							]"
 						>
@@ -115,10 +117,11 @@
 					<template v-slot:close-icon>
 						<span  class="icon-clear">&#9747;</span>
 					</template>
-					<template v-slot:menu="{ menuItem, selected }">
+					<template v-slot:menu="{ menuItem, selected, isHovered }">
 						<div
 							:class="[
 								'menu-item',
+								{ 'menu-item-hover': isHovered },
 								{ 'menu-item-selected': selected },
 							]"
 						>
@@ -169,10 +172,11 @@
 							<span class="menu-item-name">Todos</span>
 						</div>
 					</template>
-					<template v-slot:menu="{ menuItem, selected }">
+					<template v-slot:menu="{ menuItem, selected, isHovered }">
 						<div
 							:class="[
 								'menu-item',
+								{ 'menu-item-hover': isHovered },
 								{ 'menu-item-selected': selected },
 							]"
 						>
@@ -291,7 +295,7 @@ h4 {
 	justify-content: center;
 	padding: 0.75rem 1.25rem;
 }
-.menu-item:hover {
+.menu-item:hover, .menu-item-hover {
 	background-color: aqua;
 }
 .menu-item-selected,
