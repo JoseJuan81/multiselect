@@ -1,10 +1,12 @@
-import MultiSelectDl from './components/multiSelect.vue';
+import MultiSelectDl from './components/multiselect-dl.vue';
 
-export function install(Vue) {
+const install = function install(Vue) {
 	if (install.installed) return;
 	install.installed = true;
-	Vue.component('multi-select-dl', MultiSelectDl);
-}
+	Vue.component(MultiSelectDl.name, MultiSelectDl);
+};
+
+MultiSelectDl.install = install;
 
 const plugin = {
 	install,

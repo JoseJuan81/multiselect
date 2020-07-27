@@ -1,35 +1,35 @@
 <template>
 	<div
-		class="relative"
+		class="dl-main-container"
 		ref="multiselect"
 		:style="`min-height:${minHeight};`"
 		@click.stop="toogleMenu"
 	>
-		<div class="flex-display w-full items-center justify-between">
+		<div class="dl-select-container">
 			<div
 				data-cy="tags"
-				class="flex-display flex-initial flex-wrap"
+				class="dl-items-container"
 			>
-				<input type="text" ref="input" class="hidden-input"
+				<input type="text" ref="input" class="dl-hidden-input"
 					@keydown.enter="selectingItem"
 					@keydown.down="updateHoverIndex(1)"
 					@keydown.up="updateHoverIndex(-1)"
 					@keydown.esc="closeMenu"
 				>
 				<span
-					class="flex-display items-center"
+					class="dl-item"
 					v-for="(tag, index) in value"
 					:key="index"
 				>
 					<slot name="tag" :tag="tag" :removeIt="addOrRemove"></slot>
 				</span>
 			</div>
-			<div class="flex-display flex-auto justify-end">
-				<div class="flex-display items-center">
+			<div class="dl-activator-icons-container">
+				<div class="dl-activator-icons">
 					<div data-cy="clearable" @click.stop="clearAction" v-if="clearable">
 						<slot name="close-icon"></slot>
 					</div>
-					<div class="icon-menu" :style="`transform:rotateZ(${showMenu ? '180deg' : '0deg'})`">
+					<div class="dl-icon-menu" :style="`transform:rotateZ(${showMenu ? '180deg' : '0deg'})`">
 						<slot name="icon" :show-menu="showMenu"></slot>
 					</div>
 				</div>
@@ -40,13 +40,13 @@
 				<ul
 					data-cy="multiselect-menu"
 					ref="multiselect-menu"
-					class="multi-select-menu"
+					class="dl-multi-select-menu"
 					:style="`max-height:${menuMaxHeight}`"
 				>
 					<li
 						v-if="selectAll"
 						data-cy="selectAll"
-						class="menu-list"
+						class="dl-menu-item-wrapper"
 						@click.stop="onSelectAll"
 					>
 						<slot name="select-all-items" :is-selected="allIsSelected"></slot>
@@ -54,7 +54,7 @@
 					<li
 						v-for="(option, indexO) in optionComputed"
 						:key="indexO"
-						class="menu-list"
+						class="dl-menu-item-wrapper"
 						@click.stop="addOrRemove(option)"
 					>
 						<slot
@@ -214,7 +214,7 @@ function data() {
 }
 
 export default {
-	name: 'multi-select',
+	name: 'multiselect-dl',
 	computed: {
 		allIsSelected,
 		objectsInOptions,
@@ -283,41 +283,35 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.relative {
+.dl-main-container {
 	position: relative;
 }
-.w-full {
-	width: 100%;
-}
-.flex-display {
+
+.dl-select-container {
 	display: flex;
+
+	.dl-items-container {
+		display: flex;
+		flex: 1 1 auto;
+	}
+
+	.dl-activator-icons-container {
+		display: flex;
+		justify-self: flex-end;
+		.dl-activator-icons {
+			align-items: center;
+			display: flex;
+		}
+	}
 }
-.flex-initial {
-	flex: 0 1 auto;
-}
-.flex-wrap {
-	flex-wrap: wrap;
-}
-.flex-auto {
-	flex: 1 1 auto;
-}
-.items-center {
-	align-items: center;
-}
-.justify-between {
-	justify-content: space-between;
-}
-.text-right {
-	text-align: right;
-}
-.icon-menu {
+.dl-icon-menu {
 	cursor: pointer;
 	max-width: fit-content;
 	transform-origin: center;
 	transition: transform 0.175s linear;
 }
 
-.multi-select-menu {
+.dl-multi-select-menu {
 	background-color: white;
 	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 	display: block;
@@ -331,12 +325,5 @@ export default {
 	text-align: center;
 	list-style: none;
 	z-index: 99;
-}
-
-.hidden-input {
-	border: 0;
-	margin: 0;
-	padding: 0;
-	width: 0;
 }
 </style>

@@ -194,7 +194,7 @@
 </template>
 
 <script>
-import MultiSelect from './components/multiSelect.vue';
+import MultiSelect from './components/multiselect-dl.vue';
 import Tag from './components/tag.vue';
 
 function data() {

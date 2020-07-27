@@ -1,9 +1,9 @@
 {
   "name": "multiselect-dl",
   "version": "1.0.0",
-  "main": "dist/multi-select-dl.umd.js",
-  "module": "dist/multi-select-dl.esm.js",
-  "unpkg": "dist/multi-select-dl.min.js",
+  "main": "lib/multiselect-dl.umd.js",
+  "module": "lib/multiselect-dl.esm.js",
+  "unpkg": "lib/multiselect-dl.min.js",
   "browser": {
     "./sfc": "src/components/multi-select-dl.vue"
   },
@@ -14,10 +14,11 @@
     "lint": "vue-cli-service lint",
     "test": "cypress run",
     "cy:open": "cypress open",
-    "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
-    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/multi-select-dl.min.js",
-    "build:es": "rollup --config build/rollup.config.js --format es --file dist/multi-select-dl.esm.js",
-    "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/multi-select-dl.umd.js"
+    "build": "npm run build:umd & npm run build:es & npm run build:unpkg & npm run build:ssr",
+    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file lib/multiselect-dl.min.js",
+    "build:es": "rollup --config build/rollup.config.js --format es --file lib/multiselect-dl.esm.js",
+    "build:umd": "rollup --config build/rollup.config.js --format umd --file lib/multiselect-dl.umd.js",
+    "build:ssr": "SSR=true rollup --config build/rollup.config.js --format cjs --file lib/ssr.js"
   },
   "dependencies": {
     "core-js": "^3.4.4",

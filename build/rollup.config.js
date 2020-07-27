@@ -2,6 +2,15 @@ import commonjs from '@rollup/plugin-commonjs';
 import vue from 'rollup-plugin-vue';
 import buble from '@rollup/plugin-buble';
 
+const vuePluginOptions = {
+	css: true,
+	compileTemplate: true,
+};
+
+if (process.env.SSR) {
+	vuePluginOptions.template = { optimizeSSR: true };
+}
+
 export default {
 	input: 'src/index.js',
 	external: ['functionallibrary'],
@@ -14,10 +23,7 @@ export default {
 	},
 	plugins: [
 		commonjs(),
-		vue({
-			css: true,
-			compileTemplate: true,
-		}),
+		vue(vuePluginOptions),
 		buble(),
 	],
 };
