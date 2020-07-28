@@ -14,38 +14,37 @@ npm install --save multiselect-dl
 in your `main.js`
 ```js
 import Vue from 'vue';
-import { install } from 'multiselect-dl';
+import MultiselectDl from 'multiselect-dl';
 
-Vue.use(install);
+Vue.use(MultiselectDl);
 ```
 > The global way includes the `Tag` component.
 ## Local Use
 in your `.vue` file
 ```js
-<script>
 import MultiSelect from 'multiselect-dl';
-export default {
-	name: 'component-name',
-	components: {
-		MultiSelect,
-	},
-}
-...
-</script>
+```
+## In Nuxt
+import `vue` file directly (`multiselect-dl.vue`). 
+```js
+import Multiselect from 'multiselect-dl/src/components/multiselect-dl';
+```
+## only SSR
+```js
+import Multiselect from 'multiselect-dl/lib/ssr';
 ```
 ## How to use
 
 ### Props
 name | value | comments
 ---- | ----- | ------
-clearable | boolean | hide or show the "x" red button. Clear all selected items from input.
-item-divider | boolean | hide or show line to divide items in menu
+clearable | boolean | hide or show the "x" button. Clear all selected items from input.
 menuMaxHeight | string | menu max height. Default `auto`.
 minHeight | string | menu min height. Default `0.5rem`.
 multiselect | boolean | If It's `true` multi selections is available but It's `false` only simple selection is available
 selectAll | boolean | It works in multi selections and with `select-all-items` slot. This prop select / unselect all items in menu items 
 options | array | options to show in menu items
-prop | string | object's prop. This is required when you use objects and its value It has to be unique (index).
+prop | string | object's prop. This is required when you use objects and its value It has to be unique.
 transitionName | string | The name of the `vue-transition`.
 transitionMode | string | The name of the `vue-transition` mode (`out-in` / `in-out`). Default `out-in`.
 
@@ -53,8 +52,8 @@ transitionMode | string | The name of the `vue-transition` mode (`out-in` / `in-
 name | Description
 -----| ------
 tag | `slot` for item selected in the input. props = { tag }. Tag is a selected item and can be one or more.
-close-icon | `slot` for icon to clear selected items
-icon | `slot` for icon to activate menu
+clear-icon | `slot` for icon to clear selected items
+menu-activator | `slot` for icon to activate menu
 menu | `slot` for menu (menu items). props = { menuItem, selected, menuIndex }
 
 ## Multiselector
@@ -67,7 +66,6 @@ menu | `slot` for menu (menu items). props = { menuItem, selected, menuIndex }
 		<MultiSelect
 			clearable
 			select-all
-			item-divider
 			multiselect
 			prop="id"
 			data-cy="multiselect-container"
@@ -79,10 +77,10 @@ menu | `slot` for menu (menu items). props = { menuItem, selected, menuIndex }
 			<template v-slot:tag="{ tag, removeIt }">
 				<Tag @click.stop="removeIt(tag)">{{tag.name}}</Tag>
 			</template>
-			<template v-slot:icon>
+			<template v-slot:menu-activator>
 				<div class="menu-icon">&#9757;</div>
 			</template>
-			<template v-slot:close-icon>
+			<template v-slot:clear-icon>
 				<span  class="icon-clear">&#9747;</span>
 			</template>
 			<template v-slot:select-all-items="{ isSelected }">
@@ -242,7 +240,6 @@ h4 {
 <div class="flex justify-center">
 	<MultiSelect
 		clearable
-		item-divider
 		data-cy="string-simple-container"
 		class="multi-select-container flex items-center justify-between"
 		transition-name="vertical"
@@ -252,10 +249,10 @@ h4 {
 		<template v-slot:tag="{ tag }">
 			<span>{{tag}}</span>
 		</template>
-		<template v-slot:icon>
+		<template v-slot:menu-activator>
 			<div class="menu-icon">&#9757;</div>
 		</template>
-		<template v-slot:close-icon>
+		<template v-slot:clear-icon>
 			<span  class="icon-clear">&#9747;</span>
 		</template>
 		<template v-slot:menu="{ menuItem, selected }">

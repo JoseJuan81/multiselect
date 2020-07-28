@@ -1,6 +1,6 @@
 {
   "name": "multiselect-dl",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "lib/multiselect-dl.umd.js",
   "module": "lib/multiselect-dl.esm.js",
   "unpkg": "lib/multiselect-dl.min.js",

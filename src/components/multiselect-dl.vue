@@ -27,10 +27,10 @@
 			<div class="dl-activator-icons-container">
 				<div class="dl-activator-icons">
 					<div data-cy="clearable" @click.stop="clearAction" v-if="clearable">
-						<slot name="close-icon"></slot>
+						<slot name="clear-icon"></slot>
 					</div>
 					<div class="dl-icon-menu" :style="`transform:rotateZ(${showMenu ? '180deg' : '0deg'})`">
-						<slot name="icon" :show-menu="showMenu"></slot>
+						<slot name="menu-activator" :show-menu="showMenu"></slot>
 					</div>
 				</div>
 			</div>
