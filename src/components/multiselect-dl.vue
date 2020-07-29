@@ -105,9 +105,9 @@ function checkPageBottom() {
 	const pageHeight = window.innerHeight;
 	const multiselectContainer = this.$refs.multiselect;
 	const multiselectMenu = this.$refs['multiselect-menu'];
-	const menuLocation = new MenuLocation(pageHeight, multiselectContainer, multiselectMenu);
-	multiselectMenu.style.height = menuLocation.menuHeight;
-	if (menuLocation.menuTop) {
+	this.menuLocation = new MenuLocation(pageHeight, multiselectContainer, multiselectMenu);
+	multiselectMenu.style.height = this.menuLocation.menuHeight;
+	if (this.menuLocation.menuTop) {
 		multiselectMenu.style.bottom = '105%';
 	} else {
 		multiselectMenu.style.top = '100%';
@@ -192,6 +192,9 @@ function updateHoverIndex(k) {
 	let newIndex = this.hoverIndex + k;
 	newIndex = newIndex < 0 ? last - 1 : newIndex;
 	this.hoverIndex = newIndex % last;
+	this.menuLocation.menu.children[this.hoverIndex].scrollIntoView({
+		behavior: 'smooth',
+	});
 }
 
 function selectingItem() {
@@ -207,6 +210,7 @@ function data() {
 	return {
 		allFlag: false,
 		hoverIndex: null,
+		menuLocation: null,
 		SelectorInstance: InstanceSelection(this.multiselect, this.options[0], this.prop),
 		selected: [],
 		showMenu: false,
