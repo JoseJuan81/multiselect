@@ -1,6 +1,6 @@
 {
   "name": "multiselect-dl",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "lib/multiselect-dl.umd.js",
   "module": "lib/multiselect-dl.esm.js",
   "unpkg": "lib/multiselect-dl.min.js",
@@ -45,5 +45,6 @@
   },
   "bugs": {
     "url": "https://github.com/JoseJuan81/multiselect/issues"
-  }
+  },
+  "keywords": ["select", "multiselect"]
 }
