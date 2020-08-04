@@ -32,10 +32,10 @@ class MenuLocation {
 
 	get menuHeight() {
 		const { top, bottom } = this.remainHeight;
+		const { item: menuItemHeight, initial: maxHeightByItems } = this.menu.height;
 		const avaliableHeight = this.menuTop ? top : bottom;
-		const nChildren = Math.floor(avaliableHeight / this.menu.height.item);
-		const height = nChildren * this.menu.height.item;
-		const maxHeightByItems = this.menu.height.initial;
+		const nChildren = Math.floor(avaliableHeight / menuItemHeight);
+		const height = nChildren * menuItemHeight;
 		return maxHeightByItems > height ? `${height}px` : `${maxHeightByItems}px`;
 	}
 

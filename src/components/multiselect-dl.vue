@@ -8,9 +8,12 @@
 		<div class="dl-select-container">
 			<div
 				data-cy="tags"
-				class="dl-items-container"
+				:class="[
+					'dl-items-container',
+					{ 'disabled': disabled },
+				]"
 			>
-				<input type="text" ref="input" class="dl-hidden-input"
+				<input type="text" ref="input" class="dl-hidden-input" :disabled="disabled"
 					@keydown.enter="selectingItem"
 					@keydown.down="updateHoverIndex(1)"
 					@keydown.up="updateHoverIndex(-1)"
@@ -49,7 +52,11 @@
 						class="dl-menu-item-wrapper"
 						@click.stop="onSelectAll"
 					>
-						<slot name="select-all-items" :is-selected="allIsSelected"></slot>
+						<slot
+							name="select-all-items"
+							:is-selected="allIsSelected"
+							:is-hovered="optionComputed.length === hoverIndex"
+						></slot>
 					</li>
 					<li
 						v-for="(option, indexO) in optionComputed"
@@ -72,7 +79,7 @@
 
 <script>
 import {
-	equality, find, map, setNewProperty,
+	equality, find, map, setNewProperty, isEmpty,
 } from 'functionallibrary';
 import InstanceSelection from '../class';
 import MenuLocation from '../class/menuLocation';
@@ -91,13 +98,16 @@ function hideMenu() {
 }
 
 function toogleMenu() {
-	this.showMenu = !this.showMenu;
-	if (this.showMenu) {
-		this.$refs.input.focus();
-		this.$nextTick(() => {
-			this.checkPageBottom();
-			this.setHoverIndex(0);
-		});
+	if (!this.disabled) {
+		this.showMenu = !this.showMenu;
+		if (this.showMenu) {
+			const index = this.selectAll ? this.optionComputed.length : 0;
+			this.$refs.input.focus();
+			this.$nextTick(() => {
+				this.checkPageBottom();
+				this.setHoverIndex(index);
+			});
+		}
 	}
 }
 
@@ -117,10 +127,7 @@ function checkPageBottom() {
 function optionComputed() {
 	const sample = this.options[0];
 	const typeObject = typeof sample === 'object';
-	if (typeObject) {
-		return this.objectsInOptions;
-	}
-	return this.noObjectsInOptions;
+	return typeObject ? this.objectsInOptions : this.noObjectsInOptions;
 }
 
 function noObjectsInOptions() {
@@ -140,9 +147,7 @@ function selectingOptions() {
 			'isSelected',
 			o => Boolean(
 				find(
-					equality(
-						this.prop, o[this.prop],
-					),
+					equality(this.prop, o[this.prop]),
 					this.value,
 				),
 			),
@@ -154,6 +159,9 @@ function selectingOptions() {
 function addOrRemove(item) {
 	this.selected = this.SelectorInstance.selection(item);
 	this.emitInputEvent();
+	if (!this.multiselect && this.selected.length > 0) {
+		this.closeMenu();
+	}
 }
 
 function clearAction() {
@@ -188,7 +196,7 @@ function setHoverIndex(index) {
 }
 
 function updateHoverIndex(k) {
-	const last = this.options.length;
+	const last = this.menuLocation.menu.children.length;
 	let newIndex = this.hoverIndex + k;
 	newIndex = newIndex < 0 ? last - 1 : newIndex;
 	this.hoverIndex = newIndex % last;
@@ -197,7 +205,12 @@ function updateHoverIndex(k) {
 
 function selectingItem() {
 	const currentItem = this.optionComputed[this.hoverIndex];
-	this.addOrRemove(currentItem);
+	const noCurrentItem = isEmpty(currentItem);
+	if (noCurrentItem && this.hoverIndex === this.optionComputed.length) {
+		this.onSelectAll();
+	} else {
+		this.addOrRemove(currentItem);
+	}
 }
 
 function closeMenu() {
@@ -242,6 +255,10 @@ export default {
 	mounted,
 	props: {
 		clearable: {
+			default: false,
+			type: Boolean,
+		},
+		disabled: {
 			default: false,
 			type: Boolean,
 		},
@@ -295,6 +312,10 @@ export default {
 	.dl-items-container {
 		display: flex;
 		flex: 1 1 auto;
+
+		&.disabled {
+			cursor: not-allowed;
+		}
 	}
 
 	.dl-activator-icons-container {
