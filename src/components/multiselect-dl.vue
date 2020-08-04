@@ -192,9 +192,7 @@ function updateHoverIndex(k) {
 	let newIndex = this.hoverIndex + k;
 	newIndex = newIndex < 0 ? last - 1 : newIndex;
 	this.hoverIndex = newIndex % last;
-	this.menuLocation.menu.children[this.hoverIndex].scrollIntoView({
-		behavior: 'smooth',
-	});
+	this.menuLocation.viewItemInPage(this.hoverIndex);
 }
 
 function selectingItem() {

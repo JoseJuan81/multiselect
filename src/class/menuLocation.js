@@ -3,12 +3,13 @@ class MenuLocation {
 	constructor(pageHeight, multiselectNode, multiselectMenuNode) {
 		const totalChildren = multiselectMenuNode.children.length;
 		const n = totalChildren <= 3 ? totalChildren : 4;
+		const firstChildren = multiselectMenuNode.children[0];
 		this.menu = {
 			children: multiselectMenuNode.children,
 			height: {
 				initial: multiselectMenuNode.offsetHeight,
-				item: multiselectMenuNode.children[0].offsetHeight,
-				min: multiselectMenuNode.children[0].offsetHeight * n,
+				item: firstChildren && firstChildren.offsetHeight,
+				min: firstChildren && (firstChildren.offsetHeight * n),
 			},
 			node: multiselectMenuNode,
 			position: multiselectMenuNode.getBoundingClientRect(),
@@ -43,6 +44,14 @@ class MenuLocation {
 			bottom: this.page.height.total - this.select.position.bottom,
 			top: this.select.position.top,
 		};
+	}
+
+	viewItemInPage(index) {
+		const { offsetTop } = this.menu.children[index];
+		this.menu.node.scrollTo({
+			top: offsetTop,
+			behavior: 'smooth',
+		});
 	}
 }
 
