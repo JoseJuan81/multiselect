@@ -116,12 +116,14 @@ function checkPageBottom() {
 	const multiselectContainer = this.$refs.multiselect;
 	const multiselectMenu = this.$refs['multiselect-menu'];
 	this.menuLocation = new MenuLocation(pageHeight, multiselectContainer, multiselectMenu);
-	multiselectMenu.style.height = this.menuLocation.menuHeight;
-	if (this.menuLocation.menuTop) {
-		multiselectMenu.style.bottom = '105%';
-	} else {
-		multiselectMenu.style.top = '100%';
-	}
+	this.setStylesOnMenu();
+}
+
+function setStylesOnMenu() {
+	this.menuLocation.menu.node.style.height = this.menuLocation.menuHeight;
+	this.menuLocation.menu.node.style.width = this.menuLocation.menuWidth;
+	this.menuLocation.menu.node.style.left = this.menuLocation.menuLeftPos;
+	this.menuLocation.menu.node.style.top = this.menuLocation.menuTopPos;
 }
 
 function optionComputed() {
@@ -249,6 +251,7 @@ export default {
 		onSelectAll,
 		selectingItem,
 		setHoverIndex,
+		setStylesOnMenu,
 		toogleMenu,
 		updateHoverIndex,
 	},
@@ -303,7 +306,7 @@ export default {
 </script>
 <style lang="scss">
 .dl-main-container {
-	position: relative;
+	// position: relative;
 }
 
 .dl-select-container {
@@ -339,7 +342,7 @@ export default {
 	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 	display: block;
 	left: 0;
-	margin: 0.25rem 0 0;
+	margin: 0.25rem 0;
 	min-width: 10rem;
 	overflow: auto;
 	padding: 0.5rem 0;
